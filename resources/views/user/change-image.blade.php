@@ -16,7 +16,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="card" style="width: 18rem;">
-                    <img src="{{ asset("frontend/media/avatar.jpg") }}" class="card-img-top" alt="Card image cap" style="border-radius:50%;" height="100%;"
+                    <img src="{{ asset(Auth::user()->image) }}" class="card-img-top" alt="Card image cap" style="border-radius:50%;" height="100%;"
                     width="100%">
                     <br>
                     <br>
@@ -38,34 +38,20 @@
                   <h3 class="text-center"><span class="text-danger">Hii</span>
                 <strong class="text-warning">{{ Auth::user()->name }}</strong> Update Your Profile</h3>
                 <div class="card-body">
-                    <form action="{{ route('update-profile') }}" method="POST">
+                    <form action="{{ route('update-image') }}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        <input type="hidden"name="old_image" value="{{ Auth::user()->image }}">
                         <div class="form-group">
-                            <label for="">Name</label>
-                            <input type="text" name="name" class="form-control"
-                            aria-describedby="emailHelp" value="{{ Auth::user()->name }}">
-                            @error('name')
+                            <label for="">Image</label>
+                            <input type="file" name="image" class="form-control"
+                            aria-describedby="emailHelp">
+                            @error('image')
                                 <span class="text-danger">{{ $message }}</span>                         
                             @enderror
                         </div>
+                       
                         <div class="form-group">
-                            <label for="">Email</label>
-                            <input type="text" name="email" class="form-control"
-                            aria-describedby="emailHelp" value="{{ Auth::user()->email }}">
-                            @error('email')
-                            <span class="text-danger">{{ $message }}</span>                         
-                        @enderror
-                        </div>
-                        <div class="form-group">
-                            <label for="">Phone</label>
-                            <input type="text" name="phone" class="form-control"
-                            aria-describedby="emailHelp" value="{{ Auth::user()->phone }}">
-                            @error('phone')
-                            <span class="text-danger">{{ $message }}</span>                         
-                        @enderror
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-danger">Submit</button>
+                            <button type="submit" class="btn btn-danger">Upload</button>
                         </div>
                     </form>
                 </div>
