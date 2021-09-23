@@ -41,9 +41,9 @@
   </head>
 
   <body>
-
-
+  <!-- ########## LeftNavbar ########## -->
 @include('admin.inc.leftbar')
+  <!-- ########## LeftNavbar ########## -->
 
 
     <!-- ########## START: HEAD PANEL ########## -->
