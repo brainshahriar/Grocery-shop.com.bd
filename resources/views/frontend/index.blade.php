@@ -9,7 +9,7 @@
 			<!-- ================================== TOP NAVIGATION ================================== -->
 <div class="side-menu animate-dropdown outer-bottom-xs">
     <div class="head"><i class="icon fa fa-align-justify fa-fw"></i> Categories</div>        
-    <nav class="yamm megamenu-horizontal" role="navigation">
+    <nav class="yamm megamen u-horizontal" role="navigation">
         <ul class="nav">
             <li class="dropdown menu-item">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon fa fa-shopping-bag" aria-hidden="true"></i>Clothing</a>
