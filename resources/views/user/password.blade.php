@@ -16,42 +16,44 @@
         <div class="sign-in-page">
         <div class="row">
             <div class="col-md-4">
- @include('user.inc.sidebar')
-
+     @include('user.inc.sidebar')
             </div>
             <div class="col-md-8 mt-1">
               <div class="card">
                   <h3 class="text-center"><span class="text-danger">Hii</span>
-                <strong class="text-warning">{{ Auth::user()->name }}</strong> Update Your Profile</h3>
+                <strong class="text-warning">{{ Auth::user()->name }}</strong> Change Your Password</h3>
                 <div class="card-body">
-                    <form action="{{ route('update-profile') }}" method="POST">
+                    <form action="{{ route('store-password') }}" method="POST">
                         @csrf
+             
+        
                         <div class="form-group">
-                            <label for="">Name</label>
-                            <input type="text" name="name" class="form-control"
-                            aria-describedby="emailHelp" value="{{ Auth::user()->name }}">
-                            @error('name')
-                                <span class="text-danger">{{ $message }}</span>                         
-                            @enderror
+                            <label for="">Old Password</label>
+                            <input type="password" name="old_password" class="form-control"
+                            aria-describedby="emailHelp" placeholder="Enter Old Password">
+                            @error('old_password')
+                            <span class="text-danger">{{ $message }}</span>                         
+                        @enderror
                         </div>
+                        
                         <div class="form-group">
-                            <label for="">Email</label>
-                            <input type="text" name="email" class="form-control"
-                            aria-describedby="emailHelp" value="{{ Auth::user()->email }}">
-                            @error('email')
+                            <label for="">New Password</label>
+                            <input type="password" name="new_password" class="form-control"
+                            aria-describedby="emailHelp" placeholder="Enter New Password">
+                            @error('new_password')
                             <span class="text-danger">{{ $message }}</span>                         
                         @enderror
                         </div>
                         <div class="form-group">
-                            <label for="">Phone</label>
-                            <input type="text" name="phone" class="form-control"
-                            aria-describedby="emailHelp" value="{{ Auth::user()->phone }}">
-                            @error('phone')
+                            <label for="">Confirm Password</label>
+                            <input type="password" name="confirm_password" class="form-control"
+                            aria-describedby="emailHelp" placeholder="Retype Your Password">
+                            @error('confirm_password')
                             <span class="text-danger">{{ $message }}</span>                         
                         @enderror
                         </div>
                         <div class="form-group">
-                            <button type="submit" class="btn btn-danger">Submit</button>
+                            <button type="submit" class="btn btn-danger">Change Password</button>
                         </div>
                     </form>
                 </div>

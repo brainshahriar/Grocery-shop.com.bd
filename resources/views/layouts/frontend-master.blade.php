@@ -55,7 +55,7 @@
 					<li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
 					<li>
                         @auth
-                        <!--<a href="{{ route('user.dashboard') }}"><i class="icon fa fa-lock"></i>Profile</a>-->
+                        <a href="{{ route('user.dashboard') }}"><i class="icon fa fa-lock"></i>{{ Auth::user()->name }}</a>
                         <li>
                          
                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

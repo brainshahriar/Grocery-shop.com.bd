@@ -10,6 +10,7 @@ use Session;
 use Auth;
 //use Intervention\Image\Image;
 use Image;
+use Hash;
 
 class UserController extends Controller
 {
@@ -86,4 +87,56 @@ class UserController extends Controller
             return Redirect()->back()->with($notification);
         }
     }
+    public function updatePassPage()
+    {
+        return view ('user.password');
+    }
+    public function storePassword(Request $request)
+    {
+        $request->validate([
+            'old_password'=>'required',
+            'new_password'=>'required',
+            'confirm_password'=>'required',
+        ]);
+        $db_pass=Auth::user()->password;
+        $old_password=$request->old_password;
+        $new_password=$request->new_password;
+        $confirm_password=$request->confirm_password;
+
+       if(Hash::check($old_password,$db_pass))
+       {
+            if($new_password==$confirm_password)
+            {
+                User::findOrFail(Auth::id())->update([
+                    'password'=>Hash::make($new_password)
+                ]);
+                Auth::logout();
+                $notification=array(
+                    'message'=>'Oh Wow !!!',
+                    'alert-type'=>'success'
+                );
+                return Redirect()->route('login')->with($notification);
+
+            }
+            else
+            {
+                $notification=array(
+                    'message'=>'I think You Mistake Your Typing !!!',
+                    'alert-type'=>'error'
+                );
+                return Redirect()->back()->with($notification);
+               }
+            }
+            else
+            {
+             $notification=array(
+                 'message'=>'I think You Forgot !!!',
+                 'alert-type'=>'error'
+             );
+             return Redirect()->back()->with($notification);
+            }
+       }
+
+    
+
 }
