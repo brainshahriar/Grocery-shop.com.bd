@@ -49,7 +49,10 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
 
     //subcategory
     Route::get('sub-category',[CategoryController::class,'subIndex'])->name('sub-category');
-    Route::post('subcategory/store',[CategoryController::class,'subCategoryStore'])->name('subcategory-store');
+    Route::post('sub-category/store',[CategoryController::class,'subCategoryStore'])->name('subcategory-store');
+    Route::get('sub-category-edit/{subcat_id}',[CategoryController::class,'subEdit']);
+    Route::post('sub-category/update',[CategoryController::class,'subCatUpdate'])->name('update-sub-category');
+    Route::get('sub-category-delete/{subcat_id}',[CategoryController::class,'subDelete']);
 });
 
 //admin route

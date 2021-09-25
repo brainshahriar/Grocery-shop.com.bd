@@ -79,36 +79,77 @@ class CategoryController extends Controller
     );
     return Redirect()->back()->with($notification);
     }
-    //sub category
-    public function subIndex()
-    {
+     // ==================================== Subcategory ==============================
+     public function subIndex(){
         $subcategories = Subcategory::latest()->get();
-        $categories=Category::orderBy('category_name_en','ASC')->get();
+        $categories = Category::orderBy('category_name_en','ASC')->get();
         return view('admin.sub-category.index',compact('subcategories','categories'));
     }
-    //store sub category
-    public function subCategoryStore(Request $request)
-    {
+
+
+    // store data in database
+    public function subCategoryStore(Request $request){
         $request->validate([
             'subcategory_name_en' => 'required',
             'subcategory_name_bn' => 'required',
             'category_id' => 'required',
-       ],[
-           'category_id.required'=>'Select any category',
-       ]);
-       Subategory::insert([
-        'subcategory_name_en' => $request->subcategory_name_en,
-        'subcategory_name_bn' => $request->subcategory_name_bn,
-        'subcategory_slug_en' => strtolower(str_replace(' ','-',$request->subcategory_name_en)),
-        'subcategory_slug_bn' => str_replace(' ','-',$request->subcategory_name_bn),
-        'category_id' => $request->category_id,
-        'created_at' => Carbon::now(),
-       ]);
+        ],[
+            'category_id.required' => 'select any category',
+        ]);
 
-       $notification=array(
-        'message'=>'Catetory Added Success',
+        Subcategory::insert([
+            'category_id' => $request->category_id,
+            'subcategory_name_en' => $request->subcategory_name_en,
+            'subcategory_name_bn' => $request->subcategory_name_bn,
+            'subcategory_slug_en' => strtolower(str_replace(' ','-',$request->subcategory_name_en)),
+            'subcategory_slug_bn' => str_replace(' ','-',$request->subcategory_name_bn),
+            'created_at' => Carbon::now(),
+           ]);
+
+           $notification=array(
+            'message'=>'Sub Catetory Added Success',
+            'alert-type'=>'success'
+        );
+        return Redirect()->back()->with($notification);
+    }
+
+    //edit subcategory
+    public function subEdit($subcat_id){
+        $subcategory = Subcategory::findOrFail($subcat_id);
+        $categories = Category::orderBy('category_name_en','ASC')->get();
+        return view('admin.sub-category.edit',compact('subcategory','categories'));
+    }
+
+    //subcategory update
+    public function subCatUpdate(Request $request){
+        $subcat_id = $request->id;
+
+        Subcategory::findOrFail($subcat_id)->Update([
+            'category_id' => $request->category_id,
+            'subcategory_name_en' => $request->subcategory_name_en,
+            'subcategory_name_bn' => $request->subcategory_name_bn,
+            'subcategory_slug_en' => strtolower(str_replace(' ','-',$request->subcategory_name_en)),
+            'subcategory_slug_bn' => str_replace(' ','-',$request->subcategory_name_bn),
+            'updated_at' => Carbon::now(),
+           ]);
+
+           $notification=array(
+            'message'=>'Sub-Catetory Update Success',
+            'alert-type'=>'success'
+        );
+        return Redirect()->route('sub-category')->with($notification);
+    }
+
+    //delet subcategory
+    public function subDelete($subcat_id){
+
+        Subcategory::findOrFail($subcat_id)->delete();
+        $notification=array(
+        'message'=>'Sub-Category Delete Success',
         'alert-type'=>'success'
     );
     return Redirect()->back()->with($notification);
     }
+
+    // ================================= Sub Sub-Category =================
 }
