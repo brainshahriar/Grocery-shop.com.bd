@@ -1,6 +1,7 @@
 @extends('layouts.admin-master')
 
 
+
  
     <!-- ########## START: MAIN PANEL ########## -->
     <div class="sl-mainpanel">
