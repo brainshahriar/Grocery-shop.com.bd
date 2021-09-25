@@ -38,7 +38,8 @@
     <link href="{{asset('backend')}}/lib/datatables/jquery.dataTables.css" rel="stylesheet">
     <link href="{{asset('backend')}}/lib/select2/css/select2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('backend') }}/lib/toastr/toastr.css">
-
+    <link href="{{asset('backend')}}/lib/highlightjs/github.css" rel="stylesheet">
+    <link href="{{asset('backend')}}/lib/spectrum/spectrum.css" rel="stylesheet">
     <!-- Starlight CSS -->
     <link rel="stylesheet" href="{{asset('backend')}}/css/starlight.css">
   </head>
@@ -263,6 +264,9 @@
     <script src="{{asset('backend')}}/lib/datatables/jquery.dataTables.js"></script>
     <script src="{{asset('backend')}}/lib/datatables-responsive/dataTables.responsive.js"></script>
     <script src="{{asset('backend')}}/lib/select2/js/select2.min.js"></script>
+    <script src="{{asset('backend')}}/lib/spectrum/spectrum.js"></script>
+    <script src="{{ asset('backend') }}/lib/categorysearch/code.js"></script>
+    
     <script>
       $(function(){
         'use strict';
@@ -299,6 +303,8 @@
     <script src="{{asset('backend')}}/js/starlight.js"></script>
     <script src="{{asset('backend')}}/js/ResizeSensor.js"></script>
     <script src="{{asset('backend')}}/js/dashboard.js"></script>
+    <script src="{{asset('backend')}}/lib/highlightjs/highlight.pack.js"></script>
+
     <script type="text/javascript" src="{{ asset('backend') }}/lib/toastr/toastr.min.js"></script>
     <script>
         @if(Session::has('message'))

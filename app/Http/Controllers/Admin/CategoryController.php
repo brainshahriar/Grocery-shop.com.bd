@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Subcategory;
-use App\Models\SubsubCategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -76,6 +75,38 @@ class CategoryController extends Controller
     Category::findOrFail($cat_id)->delete();
         $notification=array(
         'message'=>'Category Delete Success',
+        'alert-type'=>'success'
+    );
+    return Redirect()->back()->with($notification);
+    }
+    //sub category
+    public function subIndex()
+    {
+        $subcategories = Subcategory::latest()->get();
+        $categories=Category::orderBy('category_name_en','ASC')->get();
+        return view('admin.sub-category.index',compact('subcategories','categories'));
+    }
+    //store sub category
+    public function subCategoryStore(Request $request)
+    {
+        $request->validate([
+            'subcategory_name_en' => 'required',
+            'subcategory_name_bn' => 'required',
+            'category_id' => 'required',
+       ],[
+           'category_id.required'=>'Select any category',
+       ]);
+       Subategory::insert([
+        'subcategory_name_en' => $request->subcategory_name_en,
+        'subcategory_name_bn' => $request->subcategory_name_bn,
+        'subcategory_slug_en' => strtolower(str_replace(' ','-',$request->subcategory_name_en)),
+        'subcategory_slug_bn' => str_replace(' ','-',$request->subcategory_name_bn),
+        'category_id' => $request->category_id,
+        'created_at' => Carbon::now(),
+       ]);
+
+       $notification=array(
+        'message'=>'Catetory Added Success',
         'alert-type'=>'success'
     );
     return Redirect()->back()->with($notification);

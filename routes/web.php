@@ -43,6 +43,13 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::get('/category-edit/{cat_id}',[CategoryController::class,'edit']);
     Route::post('category/update',[CategoryController::class,'catUpdate'])->name('update-category');
     Route::get('/category-delete/{cat_id}',[CategoryController::class,'delete']);
+
+    //category
+
+
+    //subcategory
+    Route::get('sub-category',[CategoryController::class,'subIndex'])->name('sub-category');
+    Route::post('subcategory/store',[CategoryController::class,'subCategoryStore'])->name('subcategory-store');
 });
 
 //admin route

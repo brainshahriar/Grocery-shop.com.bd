@@ -24,9 +24,10 @@
                       <table id="datatable1" class="table display responsive nowrap">
                         <thead>
                           <tr>
+                            <th class="wd-30p">Brand Image</th>
                             <th class="wd-25p">Brand Name English</th>
                             <th class="wd-25p">Brand Name Bangla</th>
-                            <th class="wd-30p">Brand Image</th>
+                          
                 
                             <th class="wd-20p">Action</th>
                           </tr>
