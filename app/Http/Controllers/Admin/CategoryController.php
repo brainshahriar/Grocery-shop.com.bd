@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Subcategory;
+use App\Models\Subsubcategory;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -140,7 +141,7 @@ class CategoryController extends Controller
         return Redirect()->route('sub-category')->with($notification);
     }
 
-    //delet subcategory
+    //delete subcategory
     public function subDelete($subcat_id){
 
         Subcategory::findOrFail($subcat_id)->delete();
@@ -151,5 +152,73 @@ class CategoryController extends Controller
     return Redirect()->back()->with($notification);
     }
 
-    // ================================= Sub Sub-Category =================
+ // ================================= Sub Sub-Category =================
+ public function subSubIndex(){
+    $categories = Category::orderBy('category_name_en','ASC')->get();
+    $subsubcategories = SubsubCategory::latest()->get();
+    return view('admin.sub-sub-category.index',compact('categories','subsubcategories'));
+}
+
+//get subcategory with ajax
+public function getSubCat($cat_id){
+    $subcat = Subcategory::where('category_id',$cat_id)->orderBy('subcategory_name_en','ASC')->get();
+    return json_encode($subcat);
+}
+
+
+///store
+
+public function subSubCategoryStore(Request $request){
+    SubsubCategory::insert([
+        'category_id' => $request->category_id,
+        'subcategory_id' => $request->subcategory_id,
+        'subsubcategory_name_en' => $request->subsubcategory_name_en,
+        'subsubcategory_name_bn' => $request->subsubcategory_name_bn,
+        'subsubcategory_slug_en' => strtolower(str_replace(' ','-',$request->subsubcategory_name_en)),
+        'subsubcategory_slug_bn' => str_replace(' ','-',$request->subsubcategory_name_bn),
+        'created_at' => Carbon::now(),
+       ]);
+
+       $notification=array(
+        'message'=>'Sub-SubCatetory Added Success',
+        'alert-type'=>'success'
+    );
+    return Redirect()->back()->with($notification);
+}
+
+
+//edit
+public function subSubEdit($subsubcat_id){
+    $subsubcat = SubsubCategory::findOrFail($subsubcat_id);
+    return view('admin.sub-sub-category.edit',compact('subsubcat'));
+}
+
+//update
+public function subSubCatUpdate(Request $request){
+    $subsubcat_id = $request->id;
+    SubsubCategory::findOrFail($subsubcat_id)->Update([
+        'subsubcategory_name_en' => $request->subsubcategory_name_en,
+        'subsubcategory_name_bn' => $request->subsubcategory_name_bn,
+        'subsubcategory_slug_en' => strtolower(str_replace(' ','-',$request->subsubcategory_name_en)),
+        'subsubcategory_slug_bn' => str_replace(' ','-',$request->subsubcategory_name_bn),
+        'updated_at' => Carbon::now(),
+       ]);
+
+       $notification=array(
+        'message'=>'Sub-SubCatetory Update Success',
+        'alert-type'=>'success'
+    );
+    return Redirect()->route('sub-sub-category')->with($notification);
+}
+
+
+// delete
+public function subSubDelete($subsubcat_id){
+    SubsubCategory::findOrFail($subsubcat_id)->delete();
+    $notification=array(
+    'message'=>'Sub Sub-Category Delete Success',
+    'alert-type'=>'success'
+);
+return Redirect()->back()->with($notification);
+}
 }
