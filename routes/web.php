@@ -68,7 +68,7 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::get('add-product',[ProductController::class,'addProduct'])->name('add-product');
     Route::post('product/store',[ProductController::class,'store'])->name('store-product');
     Route::get('sub-subcategory/ajax/{subcat_id}',[ProductController::class,'getSubSubCat']);
-
+    Route::get('manage-product',[ProductController::class,'manageProduct'])->name('manage-product');
 });
 
 //admin route
