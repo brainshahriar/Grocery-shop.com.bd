@@ -10,7 +10,7 @@
      <!-- ########## START: MAIN PANEL ########## -->
      <div class="sl-mainpanel">
         <nav class="breadcrumb sl-breadcrumb">
-          <a class="breadcrumb-item" href="index.html">WinBird</a>
+          <a class="breadcrumb-item" href="index.html">SHopMama</a>
           <span class="breadcrumb-item active">Add Product</span>
         </nav>
 
@@ -19,6 +19,7 @@
               <h6 class="card-body-title">Add product</h6>
               <form action="{{ route('store-product') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                
             <div class="row row-sm">
                     <div class="col-md-4">
                         <div class="form-group">
@@ -382,4 +383,3 @@
     }
   </script>
 
-   
