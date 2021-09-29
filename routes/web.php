@@ -68,6 +68,11 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::get('add-product',[ProductController::class,'addProduct'])->name('add-product');
     Route::post('product/store',[ProductController::class,'store'])->name('store-product');
     Route::get('sub-subcategory/ajax/{subcat_id}',[ProductController::class,'getSubSubCat']);
+    Route::get('manage-product',[ProductController::class,'manageProduct'])->name('manage-product');
+    Route::get('/product-edit/{product_id}',[ProductController::class,'edit']);
+    Route::post('product/data-update',[ProductController::class,'productDataUpdate'])->name('update-product-data');
+    Route::post('product/multi-image/update',[ProductController::class,'multiImageUpdate'])->name('update-product-image');
+   // Route::get('/product-delete/{product_id}',[ProductController::class,'delete']);
 
 });
 
