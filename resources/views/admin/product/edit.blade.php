@@ -277,8 +277,11 @@
             </div><!-- form-layout-footer -->
           </form>
             </div><!-- row -->
-            <form action="{{ route('update-product-image') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('update-product-thambnail') }}" method="POST" enctype="multipart/form-data">
               @csrf
+              <input type="hidden" name="product_id" value={{ $product->id }}>
+              <input type="hidden" name="old_img" value={{ $product->product_thambnail }}>
+              
             <div class="row row-sm" style="margin-top=30px">
      
                
@@ -289,9 +292,10 @@
                     <p class="card-text">
                       <div class="form-group">
                         <label class="form-control-label">Change Thumbnail: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="file" name="product_thambnail" >
+                        <input class="form-control" type="file" name="product_thambnail"  onchange="mainThambUrl(this)">
                   
                       </div>
+                      <img src="" id="mainThmb">
                     </p>
                   </div>
       
@@ -314,13 +318,15 @@
                 <div class="card">
                   <img src="{{ asset($img->photo_name) }}" class="card-img-top" alt="...">
                   <div class="card-body">
-                    <h5 class="card-title"><a id="delete" href="{{ url('admin/product-delete/'.$img->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a></h5>
+                    <h5 class="card-title">
+                      <a href="{{ url('admin/product/multiimg/delete/'.$img->id) }}" class="btn btn-sm btn-danger" id="delete" title="delete data"><i class="fa fa-trash"></i></a></h5>
                     <p class="card-text">
                       <div class="form-group">
                         <label class="form-control-label">Change Image: <span class="tx-danger">*</span></label>
-                        <input class="form-control" type="file" name="multiImg[{{ $img->id }}]" >
+                        <input class="form-control" type="file" name="multiImg[{{ $img->id }}]">
                   
                       </div>
+                     
                     </p>
                   </div>
       

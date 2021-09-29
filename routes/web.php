@@ -71,8 +71,15 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::get('manage-product',[ProductController::class,'manageProduct'])->name('manage-product');
     Route::get('/product-edit/{product_id}',[ProductController::class,'edit']);
     Route::post('product/data-update',[ProductController::class,'productDataUpdate'])->name('update-product-data');
+    Route::post('product/thambnail/update',[ProductController::class,'thambnailUpdate'])->name('update-product-thambnail');
     Route::post('product/multi-image/update',[ProductController::class,'multiImageUpdate'])->name('update-product-image');
-   // Route::get('/product-delete/{product_id}',[ProductController::class,'delete']);
+
+    Route::get('/product/multiimg/delete/{id}',[ProductController::class,'multiImageDelete']);
+    //active-inactive
+    Route::get('/product-inactive/{id}',[ProductController::class,'inactive']);
+    Route::get('/product-active/{id}',[ProductController::class,'active']);
+
+
 
 });
 

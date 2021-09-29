@@ -155,6 +155,28 @@ class ProductController extends Controller
     return Redirect()->route('manage-product')->with($notification);
 
     }
+
+    public function thambnailUpdate(Request $request)
+    {
+        $pro_id=$request->product_id;
+        $oldImage=$request->old_img;
+        unlink($oldImage);
+        $image = $request->file('product_thambnail');
+        $name_gen=hexdec(uniqid()).'.'.$image->getClientOriginalExtension();
+        Image::make($image)->resize(917,1000)->save('uploads/products/thambnail/'.$name_gen);
+        $save_url = 'uploads/products/thambnail/'.$name_gen;
+
+        Product::findOrFail($pro_id)->update([
+            'product_thambnail'=>$save_url,
+            'updated_at'=>Carbon::now(),
+        ]);
+        $notification=array(
+            'message'=>'Product Thambnail Update Success',
+            'alert-type'=>'success'
+        );
+        return Redirect()->back()->with($notification);
+
+    }
     //multi image update==================
     public function multiImageUpdate(Request $request)
     {
@@ -177,10 +199,42 @@ class ProductController extends Controller
         
     $notification=array(
         'message'=>'Product Image Update Success',
-        'alert-type'=>'success'
+        'alert-type'=>'success' 
     );
     return Redirect()->back()->with($notification);
     }
+    //delete multiimage
+    public function multiImageDelete($id)
+    {
+        $oldimg=MultiImg::findOrFail($id);
+        unlink($oldimg->photo_name);
+        MultiImg::findOrFail($id)->delete();
+        $notification=array(
+            'message'=>'Product Image Delete Success',
+            'alert-type'=>'success'
+        );
+        return Redirect()->back()->with($notification);
+    }
+    //active inactive
+    public function inactive($id)
+    {
+        Product::findOrFail($id)->update(['status'=>0]);
+        $notification=array(
+            'message'=>'Product Inactivated',
+            'alert-type'=>'success'
+        );
+        return Redirect()->back()->with($notification);
+    }
+    public function active($id)
+    {
+        Product::findOrFail($id)->update(['status'=>1]);
+        $notification=array(
+            'message'=>'Product Ativated',
+            'alert-type'=>'success'
+        );
+        return Redirect()->back()->with($notification);
+    }
+
 
 
 
