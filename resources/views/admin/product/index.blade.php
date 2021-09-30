@@ -32,6 +32,9 @@
                       <th class="wd-15p">Action</th>
                     </tr>
                     <tbody>
+                      <?php
+                 
+                      ?>
                       @foreach ($products as $item)
                       <tr>
                         <td>
@@ -41,18 +44,22 @@
                         <td>{{ $item->selling_price }} Tk</td>
                        
                         <td>{{ $item->product_qty }}</td>
-                        {{-- <td>
+                        <td>
                           @if($item->discount_price==NULL)
                           <span class="badge badge-pill badge-danger">No</span>
                           @else
-                          @php
-                              $amount = $item->selling_price - $item->discount_price;
-                              $discount=($amount/$item->selling_price)*100;
-                             
-                          @endphp
+                         @php
+                            $amount=0;
+                          $discount=0;
+                         if($item->selling_price >0 && $item->discount_price>0) 
+                         {
+                            $amount+=$item->selling_price - $item->discount_price;
+                            $discount+=($amount/$item->selling_price)*100;
+                         }                                           
+                       @endphp
                            <span class="badge badge-pill badge-danger">{{ $discount }}%</span>
                           @endif
-                        </td> --}}
+                        </td>
                       
                         <td>
                           @if($item->status==1)
