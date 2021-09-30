@@ -1,13 +1,19 @@
 <?php
 
-use App\Http\Controllers\User\UserController;
-Use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
-Use App\Http\Controllers\Frontend\IndexController;
+
+use App\Http\Controllers\User\UserController;
+
+
+
+Use App\Http\Controllers\Admin\AdminController;
 Use App\Http\Controllers\Admin\BrandController;
 Use App\Http\Controllers\Admin\CategoryController;
 Use App\Http\Controllers\Admin\ProductController;
+Use App\Http\Controllers\Admin\SliderController;
 
+Use App\Http\Controllers\Frontend\LanguageController;
+Use App\Http\Controllers\Frontend\IndexController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -73,11 +79,22 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::post('product/data-update',[ProductController::class,'productDataUpdate'])->name('update-product-data');
     Route::post('product/thambnail/update',[ProductController::class,'thambnailUpdate'])->name('update-product-thambnail');
     Route::post('product/multi-image/update',[ProductController::class,'multiImageUpdate'])->name('update-product-image');
-
     Route::get('/product/multiimg/delete/{id}',[ProductController::class,'multiImageDelete']);
-    //active-inactive
+    Route::get('product-delete/{product_id}',[ProductController::class,'delete']);
+
+    //active-inactive product
     Route::get('/product-inactive/{id}',[ProductController::class,'inactive']);
     Route::get('/product-active/{id}',[ProductController::class,'active']);
+
+    //sliders
+    Route::get('slider',[SliderController::class,'index'])->name('sliders');
+    Route::post('slider/store',[SliderController::class,'store'])->name('slider-store');
+    Route::get('slider-edit/{id}',[SliderController::class,'edit']);
+    Route::post('slider/update',[SliderController::class,'update'])->name('update-slider');
+    Route::get('slider/delete/{id}',[SliderController::class,'destroy']);
+    Route::get('slider-inactive/{id}',[SliderController::class,'inactive']);
+    Route::get('slider-active/{id}',[SliderController::class,'active']);
+
 
 
 
@@ -86,7 +103,7 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
 //admin route
 
 //user route
-Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User'], function(){
+    Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User'], function(){
     Route::get('dashboard',[UserController::class,'index'])->name('user.dashboard');
     Route::post('update/data',[UserController::class,'updateData'])->name('update-profile');
     Route::get('image',[UserController::class,'imagePage'])->name('user-image');
@@ -97,3 +114,7 @@ Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User
 });
 
 //user route
+
+//frontend route
+Route::get('language/bangla',[LanguageController::class,'bangla'])->name('bangla.language');
+Route::get('language/english',[LanguageController::class,'english'])->name('english.language');

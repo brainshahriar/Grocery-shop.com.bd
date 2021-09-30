@@ -11,7 +11,7 @@ use Session;
 use Image;
 
 
-class BrandController extends Controller
+class BrandController extends Controller 
 {
     public function index()
     {
