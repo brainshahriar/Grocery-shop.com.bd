@@ -14,7 +14,9 @@ class IndexController extends Controller
     {
         $categories = Category::orderBy('category_name_en','ASC')->get();
         $sliders=Slider::where('status',1)->orderBy('id','DESC')->limit(5)->get();
-        $products=Product::where('status',1)->orderBy('id','DESC')->get();
-        return view ('frontend.index',compact('sliders','categories','products'));
+        $proudcts=Product::where('status',1)->orderBy('id','DESC')->get();
+        return view ('frontend.index',compact('sliders','categories','proudcts'));
     }
 }
+
+
