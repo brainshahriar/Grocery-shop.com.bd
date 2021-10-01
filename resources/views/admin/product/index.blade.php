@@ -45,18 +45,19 @@
 
                         <td>{{ $item->product_qty }}</td>
                         <td>
-                          @if($item->discount_price==NULL)
-                          <span class="badge badge-pill badge-danger">No</span>
-                          @else
+                     
                          @php
                             $amount=0;
-                          $discount=0;
+                            $discount=0;
                          if($item->selling_price >0 && $item->discount_price>0)
                          {
                             $amount+=$item->selling_price - $item->discount_price;
                             $discount+=($amount/$item->selling_price)*100;
                          }
                        @endphp
+                            @if($discount<0)
+                            <span class="badge badge-pill badge-danger">No</span>
+                            @else
                            <span class="badge badge-pill badge-danger">{{ round($discount) }}%</span>
                           @endif
                         </td>
