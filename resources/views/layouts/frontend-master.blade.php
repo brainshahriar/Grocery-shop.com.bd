@@ -234,7 +234,12 @@
 	<div class="nav-outer">
 		<ul class="nav navbar-nav">
 			<li class="active dropdown yamm-fw">
-				<a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">Home</a>				
+				<a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">
+                    @if(session()->get('language')=='bangla') 
+                    হোম
+                    @else
+                    Home
+                @endif</a>				
 			</li>
 
             @php
@@ -244,7 +249,11 @@
                 
        
 			<li class="dropdown yamm mega-menu">
+                @if(session()->get('language')=='bangla') 
+                <a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">{{ $category->category_name_bn }}</a>
+                @else
 				<a href="home.html" data-hover="dropdown" class="dropdown-toggle" data-toggle="dropdown">{{ $category->category_name_en }}</a>
+                @endif
                 <ul class="dropdown-menu container">
 					<li>
                		<div class="yamm-content ">
@@ -257,17 +266,28 @@
                               
                         
                    <div class="col-xs-12 col-sm-6 col-md-2 col-menu">
+
+                        @if(session()->get('language')=='bangla') 
+                        <h2 class="title">{{ $subcat->subcategory_name_bn }}</h2>
+                        @else
                         <h2 class="title">{{ $subcat->subcategory_name_en }}</h2>
+                        @endif
+                    
+                       @php
+                        $subsubcategory = App\Models\Subsubcategory::where('subcategory_id',$subcat->id)->orderBy('subsubcategory_name_en','ASC')->get();
+                       @endphp
+
+                       @foreach ($subsubcategory as $subsubcat)
+                           
+                    
                         <ul class="links">
-                            <li><a href="#">Dresses</a></li>
-                            <li><a href="#">Shoes </a></li>
-                            <li><a href="#">Jackets</a></li>
-                            <li><a href="#">Sunglasses</a></li>
-                            <li><a href="#">Sport Wear</a></li>
-                             <li><a href="#">Blazers</a></li>
-                              <li><a href="#">Shirts</a></li>
-                          
+                            @if(session()->get('language')=='bangla')
+                            <li><a href="#">{{ $subsubcat->subsubcategory_name_bn }}</a></li>  
+                            @else
+                            <li><a href="#">{{ $subsubcat->subsubcategory_name_en }}</a></li>  
+                            @endif                               
                         </ul>
+                        @endforeach
                     </div><!-- /.col -->
                     @endforeach
 
