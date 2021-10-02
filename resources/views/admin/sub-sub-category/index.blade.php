@@ -20,10 +20,10 @@
                   <table id="datatable1" class="table display responsive nowrap">
                     <thead>
                       <tr>
-                        <th class="wd-30p">Cat Name</th>
-                        <th class="wd-30p">SubCat Name</th>
-                        <th class="wd-25p">subSubCat Name En</th>
-                        <th class="wd-25p">subSubCategory Name Bn</th>
+                        <th class="wd-20p">Cat Name</th>
+                        <th class="wd-20p">SubCat Name</th>
+                        <th class="wd-20p">SubSubCat Name En</th>
+                        <th class="wd-20p">SubSubCategory Name Bn</th>
                         <th class="wd-20p">Action</th>
                       </tr>
                     </thead>

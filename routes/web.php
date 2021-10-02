@@ -118,4 +118,4 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
 //frontend route
 Route::get('language/bangla',[LanguageController::class,'bangla'])->name('bangla.language');
 Route::get('language/english',[LanguageController::class,'english'])->name('english.language');
-Route::get('single/product/{id}',[IndexController::class,'singleProduct']);
+Route::get('single/product/{id}/{slug}',[IndexController::class,'singleProduct']);
