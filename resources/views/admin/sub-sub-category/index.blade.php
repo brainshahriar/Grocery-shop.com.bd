@@ -21,9 +21,9 @@
                     <thead>
                       <tr>
                         <th class="wd-20p">Cat Name</th>
-                        <th class="wd-20p">SubCat Name</th>
-                        <th class="wd-20p">SubSubCat Name En</th>
-                        <th class="wd-20p">SubSubCategory Name Bn</th>
+                        <th class="wd-20p">S.C Name</th>
+                        <th class="wd-20p">S.S.C En</th>
+                        <th class="wd-20p">S.S.C Bn</th>
                         <th class="wd-20p">Action</th>
                       </tr>
                     </thead>
