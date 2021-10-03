@@ -42,8 +42,9 @@ class IndexController extends Controller
     //tagwise product
     public function tagWiseProduct($tag)
     {
+        $categories = Category::orderBy('category_name_en','ASC')->get();
         $products=Product::where('status',1)->where('product_tags_en',$tag)->orWhere('product_tags_bn',$tag)->orderBy('id','DESC')->get();
-        return view ('frontend.tag-product',compact('products'));
+        return view ('frontend.tag-product',compact('products','categories'));
     }
 }
 
