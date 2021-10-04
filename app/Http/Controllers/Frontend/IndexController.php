@@ -37,7 +37,18 @@ class IndexController extends Controller
     {
         $products=Product::findOrFail($id);
         $multiImgs=MultiImg::where('product_id',$id)->get();
-        return view('frontend.single-product',compact('products','multiImgs'));
+        $related_product=Product::where('category_id',$products->category_id)->where('id','!=',$id)->orderBy('id','DESC')->get();
+
+        $color_en=$products->product_color_en;
+        $product_color_en=explode(',',$color_en);
+        $color_bn=$products->product_color_bn;
+        $product_color_bn=explode(',',$color_bn);
+        $size_en=$products->product_size_en;
+        $product_size_en=explode(',',$size_en);
+        $size_bn=$products->product_size_bn;
+        $product_size_bn=explode(',',$size_bn);
+
+        return view('frontend.single-product',compact('products','multiImgs','product_color_en','product_color_bn','product_size_en','product_size_bn','related_product'));
     }
     //tagwise product
     public function tagWiseProduct($tag)
@@ -48,10 +59,16 @@ class IndexController extends Controller
     }
     public function subcategoryProduct($subcat_id,$slug)
     {
-        $products=Product::where('status',1)->where('subcategory_id',$subcat_id)->orderBy('id','DESC')->paginate();
+        $products=Product::where('status',1)->where('subcategory_id',$subcat_id)->orderBy('id','DESC')->paginate(3);
         $categories=Category::orderBy('category_name_en','ASC')->get();
-        return view ('frontend.category-wise-product',compact('products','categories'));
+        return view ('frontend.subcategory-wise-product',compact('products','categories'));
+    }
+    public function subsubcategoryProduct($subsubcat_id,$slug)
+    {
+        $products=Product::where('status',1)->where('subsubcategory_id',$subsubcat_id)->orderBy('id','DESC')->paginate(3);
+        $categories=Category::orderBy('category_name_en','ASC')->get();
+        return view ('frontend.subsubcategory-wise-product',compact('products','categories'));
     }
 }
 
-// where('subcategory_id',$subcat_id)->orWhere('subcategory_slug_en',$slug)->orWhere('subcategory_slug_bn',$slug)->
+
