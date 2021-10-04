@@ -560,9 +560,9 @@ Home
                                                             </button>
                                                             <button class="btn btn-primary cart-btn" type="button" >
 																@if(session()->get('language')=='bangla')
-																Add to cart
-																@else
 																কার্টে সংযুক্ত করুন
+																@else
+																Add to cart
 																@endif
 																<button>
                                                         </li>

@@ -22,12 +22,16 @@
 											@foreach ($subcategories as $subcat)
 													<div class="col-sm-12 col-md-3">
 														@if (session()->get('language') == 'bangla')
-												
-															<h2 class="title">{{ $subcat->subcategory_name_bn }}</h2>
+												<a href="{{ url('subcategory/product/'.$subcat->id.'/'.$subcat->subcategory_slug_bn) }}">
+													<h2 class="title">{{ $subcat->subcategory_name_bn }}</h2>
+
+												</a>
 													
 													@else
-												
-															<h2 class="title">{{ $subcat->subcategory_name_en }}</h2>
+												<a href="{{ url('subcategory/product/'.$subcat->id.'/'.$subcat->subcategory_slug_en) }}">
+													<h2 class="title">{{ $subcat->subcategory_name_en }}</h2>
+
+												</a>
 												
 													 @endif
 														<ul class="links list-unstyled">
