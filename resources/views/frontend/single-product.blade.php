@@ -30,7 +30,7 @@
 			<div class='col-md-3 sidebar'>
 				<div class="sidebar-module-container">
 				<div class="home-banner outer-top-n">
-<img src="assets/images/banners/LHS-banner.jpg" alt="Image">
+<img src="{{ asset('frontend') }}/assets/images/banners/LHS-banner.jpg" alt="Image">
 </div>		
   
     
@@ -144,9 +144,9 @@
                        
 						<div class="product-info">
                             @if (session()->get('language') == 'bangla')
-							<h1 class="name">{{ $products->product_name_bn }}</h1>
+							<h1 class="name" id="pname">{{ $products->product_name_bn }}</h1>
                             @else
-                            <h1 class="name">{{ $products->product_name_en }}</h1>
+                            <h1 class="name" id="pname">{{ $products->product_name_en }}</h1>
                             @endif
                     
 							<div class="rating-reviews m-t-20">
@@ -236,8 +236,8 @@
 
 									<div class="col-sm-6">
 										<div class="form-group">
-											<label for="exampleFormControlSelect1">Color</label>
-											<select class="form-control" id="exampleFormControlSelect1">
+											<label for="color">Color</label>
+											<select class="form-control" id="color">
 
 												@if (session()->get('language') == 'bangla')
 												@foreach ($product_color_bn as $color)
@@ -258,9 +258,11 @@
 									</div>
 
 									<div class="col-sm-6">
+										@if($products->product_size_en==null)
+										@else
 										<div class="form-group">
-											<label for="exampleFormControlSelect1">Size</label>
-											<select class="form-control" id="exampleFormControlSelect1">
+											<label for="size">Size</label>
+											<select class="form-control" id="size">
 												@if (session()->get('language') == 'bangla')
 												@foreach ($product_size_bn as $size)
 												
@@ -276,6 +278,7 @@
 												@endif
 											</select>
 										  </div>
+										  @endif
 									</div>
 
 								</div><!-- /.row -->
@@ -294,19 +297,25 @@
 								                  <div class="arrow plus gradient"><span class="ir"><i class="icon fa fa-sort-asc"></i></span></div>
 								                  <div class="arrow minus gradient"><span class="ir"><i class="icon fa fa-sort-desc"></i></span></div>
 								                </div>
-								                <input type="text" value="1">
+											
+
+												<input type="text" value="1" id="qty" min="1">
 							              </div>
 							            </div>
 									</div>
 
 									<div class="col-sm-7">
-										<a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i>
+										
+								              
+										<input type="hidden" value="{{ $products->id }}" id="product_id" >
+
+										<button type="submit" onclick="addToCart()" href="#" class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i>
 											@if (session()->get('language') == 'bangla')
 											কার্টে সংযুক্ত করুন
 											@else
 											ADD TO CART
 											@endif
-										</a>
+										</button>
 									</div>
 
 									

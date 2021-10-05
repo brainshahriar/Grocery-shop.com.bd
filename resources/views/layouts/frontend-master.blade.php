@@ -10,6 +10,7 @@
 		<meta name="author" content="">
 	    <meta name="keywords" content="MediaCenter, Template, eCommerce">
 	    <meta name="robots" content="all">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
 
 	    <title>@yield('title')</title>
 
@@ -553,6 +554,10 @@
             </div>
         </div>
     </div>
+
+
+
+    @include('modal.cart-modal')
 </footer>
 <!-- ============================================================= FOOTER : END============================================================= -->
 
@@ -578,6 +583,8 @@
     <script src="{{ asset('frontend') }}/assets/js/bootstrap-select.min.js"></script>
     <script src="{{ asset('frontend') }}/assets/js/wow.min.js"></script>
 	<script src="{{ asset('frontend') }}/assets/js/scripts.js"></script>
+    <script src="{{ asset('frontend') }}/assets/js/sweetalert2@8.js"></script>
+
     <script type="text/javascript" src="{{ asset('backend') }}/lib/toastr/toastr.min.js"></script>
     <script>
         @if(Session::has('message'))

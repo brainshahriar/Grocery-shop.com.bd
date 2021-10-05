@@ -14,6 +14,7 @@ Use App\Http\Controllers\Admin\SliderController;
 
 Use App\Http\Controllers\Frontend\LanguageController;
 Use App\Http\Controllers\Frontend\IndexController;
+Use App\Http\Controllers\Frontend\CartController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -128,3 +129,8 @@ Route::get('product/tag/{tag}',[IndexController::class,'tagWiseProduct']);
 Route::get('subcategory/product/{subcat_id}/{slug}',[IndexController::class,'subcategoryProduct']);
 //subsubcategory wise product show
 Route::get('sub/subcategory/product/{subsubcat_id}/{slug}',[IndexController::class,'subsubcategoryProduct']);
+//product cart modal ajax
+Route::get('product/view/modal/{id}',[IndexController::class,'productViewAjax']);
+//addtocart
+Route::post('cart/data/store/{id}',[CartController::class,'addToCart']);
+
