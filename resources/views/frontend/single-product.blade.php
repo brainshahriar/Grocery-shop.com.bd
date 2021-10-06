@@ -216,9 +216,9 @@
 
 									<div class="col-sm-6">
 										<div class="favorite-button m-t-10">
-											<a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Wishlist" href="#">
+											<button class="btn btn-primary" id="{{ $products->id }}" onclick="addToWishlist(this.id)" data-toggle="tooltip" data-placement="right" title="Wishlist" href="#">
 											    <i class="fa fa-heart"></i>
-											</a>
+											</button>
 											<a class="btn btn-primary" data-toggle="tooltip" data-placement="right" title="Add to Compare" href="#">
 											   <i class="fa fa-signal"></i>
 											</a>

@@ -2,8 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\User\UserController;
 
+use App\Http\Controllers\User\UserController;
+Use App\Http\Controllers\User\WishlistController;
 
 
 Use App\Http\Controllers\Admin\AdminController;
@@ -15,6 +16,8 @@ Use App\Http\Controllers\Admin\SliderController;
 Use App\Http\Controllers\Frontend\LanguageController;
 Use App\Http\Controllers\Frontend\IndexController;
 Use App\Http\Controllers\Frontend\CartController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -111,6 +114,11 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::post('update/image',[UserController::class,'updateImage'])->name('update-image');
     Route::get('update/password',[UserController::class,'updatePassPage'])->name('update-password');
     Route::post('store/password',[UserController::class,'storePassword'])->name('store-password');
+    //wishlist
+    //Route::post('/add-to-wishlist/{product_id}',[WishlistController::class,'addToWishlist']);
+
+
+    
 
 });
 
@@ -133,4 +141,10 @@ Route::get('sub/subcategory/product/{subsubcat_id}/{slug}',[IndexController::cla
 Route::get('product/view/modal/{id}',[IndexController::class,'productViewAjax']);
 //addtocart
 Route::post('cart/data/store/{id}',[CartController::class,'addToCart']);
+//minicart
+Route::get('product/mini/cart',[CartController::class,'miniCart']);
+//cart remove
+Route::get('/minicart/product-remove/{rowId}',[CartController::class,'miniCartRemove']);
+//wishlist
+Route::post('/add-to-wishlist/{product_id}',[CartController::class,'addToWishlist']);
 
