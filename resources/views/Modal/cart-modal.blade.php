@@ -85,7 +85,7 @@
             {
                 $('#pname').text(data.product.product_name_en);
                 $('#price').text(data.product.selling_price);
-                $('#pcode').text(data.product.product_code);
+                $('#pcode').text(data.product.product_code); 
                 $('#category').text(data.product.category.category_name_en);
                 $('#pbrand').text(data.product.brand.brand_name_en);
                 $('#pimage').attr('src','/'+data.product.product_thambnail);
@@ -256,7 +256,6 @@
     
 </script>
 
-//wishlist
 <script>
   function addToWishlist(product_id){
       $.ajax({
@@ -286,5 +285,74 @@
               //  end message
           }
       })
+  }
+</script>
+
+
+
+<script>
+  function wishlist(){
+      $.ajax({
+          type:'GET',
+           url: "{{ url('/user/get-wishlist-product') }}",
+          dataType:'json',
+          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+          success:function(response){
+              var rows = ""
+             $.each(response, function(key,value){
+                 rows += `<tr>
+        <td class="col-md-2"><img src="/${value.product.product_thambnail}" alt="imga"></td>
+        <td class="col-md-7">
+          <div class="product-name"><a href="#">${value.product.product_name_en}</a></div>
+          <div class="price">
+                      ${value.product.discount_price == null
+                          ? `$${value.product.selling_price}`
+                          :
+                          `$${value.product.discount_price} <span>$${value.product.selling_price}</span>`
+                      }
+          </div>
+        </td>
+        <td class="col-md-2">
+          <button class="btn-upper btn btn-primary" type="button" title="Add Cart" data-toggle="modal" data-target="#cartModal" id="${value.product_id}" onclick="productView(this.id)">Add to cart</button>
+        </td>
+        <td class="col-md-1 close-btn">
+          <button type="submit" class="" id="${value.id}" onclick="wishlistRemove(this.id)" ><i class="fa fa-times"></i></button>
+        </td>
+      </tr>`
+             });
+             $('#wishlist').html(rows);
+          }
+      })
+  }
+  wishlist();
+  function wishlistRemove(id){
+      $.ajax({
+          type:'GET',
+          url: "{{ url('/user/wishlist-remove/') }}/"+id,
+          dataType:'json',
+          headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+          success:function(data){
+              wishlist();
+              //  start message
+              const Toast = Swal.mixin({
+                      toast: true,
+                      position: 'top-end',
+                      showConfirmButton: false,
+                      timer: 3000
+                    })
+                   if($.isEmptyObject(data.error)){
+                        Toast.fire({
+                          type: 'success',
+                          title: data.success
+                        })
+                   }else{
+                         Toast.fire({
+                            type: 'error',
+                            title: data.error
+                        })
+         }
+                  //  end message
+          }
+      });
   }
 </script>

@@ -116,7 +116,7 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::post('store/password',[UserController::class,'storePassword'])->name('store-password');
     //wishlist
     //Route::post('/add-to-wishlist/{product_id}',[WishlistController::class,'addToWishlist']);
-
+    Route::get('wishlist',[WishlistController::class,'create'])->name('wishlist');
 
     
 
@@ -147,4 +147,5 @@ Route::get('product/mini/cart',[CartController::class,'miniCart']);
 Route::get('/minicart/product-remove/{rowId}',[CartController::class,'miniCartRemove']);
 //wishlist
 Route::post('/add-to-wishlist/{product_id}',[CartController::class,'addToWishlist']);
+
 
