@@ -20,7 +20,7 @@
                         <div class="card-body">
                             <form action="{{ route('coupon-update') }}" method="POST" >
                                 @csrf
-                                <input type="hidden" value="{{ $coupons->id }}">
+                                <input type="hidden" name="id" value="{{ $coupons->id }}">
                                 <div class="form-group">
                                   <label class="form-control-label">Coupon Name: <span class="tx-danger">*</span></label>
                                   <input class="form-control" type="text" name="coupon_name" value="{{ $coupons->coupon_name }}" placeholder="Enter Coipon Name">

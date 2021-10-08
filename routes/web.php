@@ -13,7 +13,7 @@ Use App\Http\Controllers\Admin\CategoryController;
 Use App\Http\Controllers\Admin\ProductController;
 Use App\Http\Controllers\Admin\SliderController;
 Use App\Http\Controllers\Admin\CouponController;
-
+Use App\Http\Controllers\Admin\ShipAreaController;
 
 
 Use App\Http\Controllers\Frontend\LanguageController;
@@ -109,8 +109,19 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::post('coupon/update',[CouponController::class,'update'])->name('coupon-update');
     Route::get('coupon-delete/{id}',[CouponController::class,'destroy']);
 
-
-
+//shipping area
+//divisions
+    Route::get('division',[ShipAreaController::class,'createDivision'])->name('division');
+    Route::post('division/store',[ShipAreaController::class,'storeDivision'])->name('division-store');
+    Route::get('division-edit/{id}',[ShipAreaController::class,'edit']);
+    Route::post('division/update',[ShipAreaController::class,'update'])->name('division-update');
+    Route::get('division-delete/{id}',[ShipAreaController::class,'destroy']);
+//districs
+    Route::get('district',[ShipAreaController::class,'createDistrict'])->name('district');
+    Route::post('district/store',[ShipAreaController::class,'storeDistrict'])->name('district-store');
+    Route::get('district-edit/{id}',[ShipAreaController::class,'edit']);
+    Route::post('district/update',[ShipAreaController::class,'update'])->name('district-update');
+    Route::get('district-delete/{id}',[ShipAreaController::class,'destroy']);
 
 });
 
