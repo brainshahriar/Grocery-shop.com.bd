@@ -22,7 +22,7 @@
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $divisions->id }}">
                                 <div class="form-group">
-                                  <label class="form-control-label">Coupon Name: <span class="tx-danger">*</span></label>
+                                  <label class="form-control-label">Division Name: <span class="tx-danger">*</span></label>
                                   <input class="form-control" type="text" name="division_name" value="{{ $divisions->division_name }}" placeholder="Enter Division">
                                   @error('division_name')
                                       <span class="text-danger">{{ $message }}</span>

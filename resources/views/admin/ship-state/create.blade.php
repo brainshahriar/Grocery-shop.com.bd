@@ -1,19 +1,19 @@
 @extends('layouts.admin-master')
 @section('shipping') active show-sub @endsection
-@section('add-district','active')
+@section('add-state','active')
 
      <!-- ########## START: MAIN PANEL ########## -->
      <div class="sl-mainpanel">
         <nav class="breadcrumb sl-breadcrumb">
           <a class="breadcrumb-item" href="index.html">WinCart</a>
-          <span class="breadcrumb-item active">District</span>
+          <span class="breadcrumb-item active">State</span>
         </nav>
   
         <div class="sl-pagebody">
           <div class="row row-sm">
             <div class="col-md-8">
               <div class="card">
-                <div class="card-header">District List</div>
+                <div class="card-header">State List</div>
                 <div class="card-body">
                 <div class="table-wrapper">
                   <table id="datatable1" class="table display responsive nowrap">
@@ -21,14 +21,16 @@
                       <tr>
                         <th class="wd-30p">Division Name</th>
                         <th class="wd-30p">District Name</th>
+                        <th class="wd-30p">State Name</th>
                         <th class="wd-20p">Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach ($districts as $item)
+                      @foreach ($states as $item)
                       <tr>
                         <td>{{ $item->division->division_name }}</td>
-                        <td>{{ $item->district_name }}</td>
+                        <td>{{ $item->district->district_name }}</td>
+                        <td>{{ $item->state_name }}</td>
                       
                         <td>
                           <a href="{{ url('admin/district-edit/'.$item->id) }}" class="btn btn-sm btn-primary" title="edit data"> <i class="fa fa-pencil"></i></a>
@@ -45,9 +47,9 @@
             </div>
             <div class="col-md-4">
               <div class="card">
-                <div class="card-header">Add District</div>
+                <div class="card-header">Add State</div>
                   <div class="card-body">
-                <form action="{{ route('district-store') }}" method="POST">
+                <form action="{{ route('state-store') }}" method="POST">
                     @csrf
                     <div class="form-group">
                         <label class="form-control-label">Select District: <span class="tx-danger">*</span></label>
@@ -61,11 +63,21 @@
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                       </div>
+                      <div class="form-group">
+                        <label class="form-control-label">Select District: <span class="tx-danger">*</span></label>
+                        <select class="form-control select2-show-search" data-placeholder="Select One" name="district_id">
+                          <option label="Choose one"></option>
+
+                        </select>
+                        @error('district_id')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                      </div>
 
                     <div class="form-group">
-                      <label class="form-control-label">District Name: <span class="tx-danger">*</span></label>
-                      <input class="form-control" type="text" name="district_name" value="{{ old('district_name') }}" placeholder="Enter ">
-                      @error('district_name')
+                      <label class="form-control-label">State Name: <span class="tx-danger">*</span></label>
+                      <input class="form-control" type="text" name="state_name" value="{{ old('state_name') }}" placeholder="Enter ">
+                      @error('state_name')
                       <span class="text-danger">{{ $message }}</span>
                     @enderror
                     </div>
@@ -81,4 +93,27 @@
         </div>
     </div>
 
-  
+    <script src="{{asset('backend')}}/lib/jquerysubsubcategory/jquery-2.2.4.min.js"></script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('select[name="division_id"]').on('change', function(){
+            var division_id = $(this).val();
+            if(division_id) {
+                $.ajax({
+                    url: "{{  url('/admin/district-get/ajax') }}/"+division_id,
+                    type:"GET",
+                    dataType:"json",
+                    success:function(data) {
+                       var d =$('select[name="district_id"]').empty();
+                          $.each(data, function(key, value){
+                              $('select[name="district_id"]').append('<option value="'+ value.id +'">' + value.district_name + '</option>');
+                          });
+                    },
+                });
+            } else {
+                alert('danger');
+            }
+        });
+    });
+    </script>

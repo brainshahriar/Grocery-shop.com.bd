@@ -119,9 +119,20 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
 //districs
     Route::get('district',[ShipAreaController::class,'createDistrict'])->name('district');
     Route::post('district/store',[ShipAreaController::class,'storeDistrict'])->name('district-store');
-    Route::get('district-edit/{id}',[ShipAreaController::class,'edit']);
-    Route::post('district/update',[ShipAreaController::class,'update'])->name('district-update');
-    Route::get('district-delete/{id}',[ShipAreaController::class,'destroy']);
+    Route::get('district-edit/{id}',[ShipAreaController::class,'districtEdit']);
+    Route::post('district/update',[ShipAreaController::class,'districtUpdate'])->name('district-update');
+    Route::get('district-delete/{id}',[ShipAreaController::class,'districtDestroy']);
+
+    //state
+    Route::get('state',[ShipAreaController::class,'createState'])->name('state');
+    Route::post('state/store',[ShipAreaController::class,'storeState'])->name('state-store');
+    Route::get('state-edit/{id}',[ShipAreaController::class,'stateEdit']);
+    Route::post('state/update',[ShipAreaController::class,'stateUpdate'])->name('state-update');
+    Route::get('state-delete/{id}',[ShipAreaController::class,'stateDestroy']);
+
+
+    Route::get('district-get/ajax/{division_id}',[ShipAreaController::class,'getDistrictAjax']);
+
 
 });
 
