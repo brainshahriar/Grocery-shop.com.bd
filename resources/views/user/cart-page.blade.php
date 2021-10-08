@@ -1,6 +1,6 @@
 @extends('layouts.frontend-master')
 @section('title')
-My Wishlist	
+My Cart	
 @endsection
 @section('frontend-content')
 
@@ -9,7 +9,7 @@ My Wishlist
 		<div class="breadcrumb-inner">
 			<ul class="list-inline list-unstyled">
 				<li><a href="home.html">Home</a></li>
-				<li class='active'>Wishlist</li>
+				<li class='active'>Cart</li>
 			</ul>
 		</div><!-- /.breadcrumb-inner -->
 	</div><!-- /.container -->
@@ -24,21 +24,23 @@ My Wishlist
 		<table class="table">
 			<thead>
 				<tr>
-					<th colspan="4" class="heading-title">My Wishlist</th>
+					<th colspan="4" class="heading-title">My Cart</th>
 				</tr>
 			</thead>
-			<tbody>
-<div class="wishlist">
+				
+		
+			<tbody id="cartPage">
+				
 
-</div>
-			
 			</tbody>
+
 		</table>
 	</div>
 </div>			</div><!-- /.row -->
 		</div><!-- /.sigin-in-->
 		<!-- ============================================== BRANDS CAROUSEL ============================================== -->
-
+@include('frontend.inc.brand')
 <!-- ============================================== BRANDS CAROUSEL : END ============================================== -->	</div><!-- /.container -->
 </div><!-- /.body-content -->
+
 @endsection

@@ -5,17 +5,21 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\User\UserController;
 Use App\Http\Controllers\User\WishlistController;
-
+Use App\Http\Controllers\User\CartPageController;
 
 Use App\Http\Controllers\Admin\AdminController;
 Use App\Http\Controllers\Admin\BrandController;
 Use App\Http\Controllers\Admin\CategoryController;
 Use App\Http\Controllers\Admin\ProductController;
 Use App\Http\Controllers\Admin\SliderController;
+Use App\Http\Controllers\Admin\CouponController;
+
+
 
 Use App\Http\Controllers\Frontend\LanguageController;
 Use App\Http\Controllers\Frontend\IndexController;
 Use App\Http\Controllers\Frontend\CartController;
+
 
 
 /*
@@ -98,6 +102,12 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::get('slider/delete/{id}',[SliderController::class,'destroy']);
     Route::get('slider-inactive/{id}',[SliderController::class,'inactive']);
     Route::get('slider-active/{id}',[SliderController::class,'active']);
+//cupon
+    Route::get('coupon',[CouponController::class,'create'])->name('coupon');
+    Route::post('coupon/store',[CouponController::class,'store'])->name('coupon-store');
+    Route::get('coupon-edit/{id}',[CouponController::class,'edit']);
+    Route::post('coupon/update',[CouponController::class,'update'])->name('coupon-update');
+    Route::get('coupon-delete/{id}',[CouponController::class,'destroy']);
 
 
 
@@ -117,6 +127,11 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     //wishlist
     //Route::post('/add-to-wishlist/{product_id}',[WishlistController::class,'addToWishlist']);
     Route::get('wishlist',[WishlistController::class,'create'])->name('wishlist');
+    //cart list show
+    // Route::get('/my-cart',[CartPageController::class,'create'])->name('cart');
+    // Route::get('/get-cart-product',[CartPageController::class,'getAllCart']);
+     Route::get('/get-wishlist-product',[WishlistController::class,'readAllProduct']);
+
 
     
 
@@ -145,7 +160,7 @@ Route::post('cart/data/store/{id}',[CartController::class,'addToCart']);
 Route::get('product/mini/cart',[CartController::class,'miniCart']);
 //cart remove
 Route::get('/minicart/product-remove/{rowId}',[CartController::class,'miniCartRemove']);
-//wishlist
+//add to wishlist without login
 Route::post('/add-to-wishlist/{product_id}',[CartController::class,'addToWishlist']);
 
 
