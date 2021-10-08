@@ -1,5 +1,5 @@
 @extends('layouts.admin-master')
-
+@section('admin-content')
 
 
  
@@ -119,4 +119,4 @@
       </footer>
     </div><!-- sl-mainpanel -->
     <!-- ########## END: MAIN PANEL ########## -->
-
+@endsection

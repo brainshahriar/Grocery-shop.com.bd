@@ -1,4 +1,5 @@
 @extends('layouts.admin-master')
+@section('admin-content')
 @section('brand','active')
 
 
@@ -96,4 +97,4 @@
       </div>
 
     </div>
-
+@endsection

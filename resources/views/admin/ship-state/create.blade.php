@@ -1,4 +1,5 @@
 @extends('layouts.admin-master')
+@section('admin-content')
 @section('shipping') active show-sub @endsection
 @section('add-state','active')
 
@@ -33,9 +34,9 @@
                         <td>{{ $item->state_name }}</td>
                       
                         <td>
-                          <a href="{{ url('admin/district-edit/'.$item->id) }}" class="btn btn-sm btn-primary" title="edit data"> <i class="fa fa-pencil"></i></a>
+                          <a href="{{ url('admin/state-edit/'.$item->id) }}" class="btn btn-sm btn-primary" title="edit data"> <i class="fa fa-pencil"></i></a>
 
-                          <a href="{{ url('admin/district-delete/'.$item->id) }}" class="btn btn-sm btn-danger" id="delete" title="delete data"><i class="fa fa-trash"></i></a>
+                          <a href="{{ url('admin/state-delete/'.$item->id) }}" class="btn btn-sm btn-danger" id="delete" title="delete data"><i class="fa fa-trash"></i></a>
                         </td>
                       </tr>
                       @endforeach
@@ -104,6 +105,7 @@
                     url: "{{  url('/admin/district-get/ajax') }}/"+division_id,
                     type:"GET",
                     dataType:"json",
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                     success:function(data) {
                        var d =$('select[name="district_id"]').empty();
                           $.each(data, function(key, value){
@@ -117,3 +119,4 @@
         });
     });
     </script>
+    @endsection

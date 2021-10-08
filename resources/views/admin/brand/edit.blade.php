@@ -1,5 +1,5 @@
 @extends('layouts.admin-master')
-
+@section('admin-content')
 
      <!-- ########## START: MAIN PANEL ########## -->
      <div class="sl-mainpanel">
@@ -54,4 +54,4 @@
 
 
     </div>
-
+@endsection

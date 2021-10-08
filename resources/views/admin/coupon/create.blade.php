@@ -1,4 +1,5 @@
 @extends('layouts.admin-master')
+@section('admin-content')
 @section('coupon','active')
 
 
@@ -109,4 +110,4 @@
       </div>
 
     </div>
-
+@endsection

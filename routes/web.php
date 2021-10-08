@@ -124,14 +124,12 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::get('district-delete/{id}',[ShipAreaController::class,'districtDestroy']);
 
     //state
-    Route::get('state',[ShipAreaController::class,'createState'])->name('state');
-    Route::post('state/store',[ShipAreaController::class,'storeState'])->name('state-store');
+    Route::get('state',[ShipAreaController::class,'stateCreate'])->name('state');
+    Route::get('district-get/ajax/{division_id}',[ShipAreaController::class,'getDistrictAjax']);
+    Route::post('state/store',[ShipAreaController::class,'stateStore'])->name('state-store');
     Route::get('state-edit/{id}',[ShipAreaController::class,'stateEdit']);
     Route::post('state/update',[ShipAreaController::class,'stateUpdate'])->name('state-update');
     Route::get('state-delete/{id}',[ShipAreaController::class,'stateDestroy']);
-
-
-    Route::get('district-get/ajax/{division_id}',[ShipAreaController::class,'getDistrictAjax']);
 
 
 });
