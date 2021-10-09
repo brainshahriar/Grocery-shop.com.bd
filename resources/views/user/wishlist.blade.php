@@ -1,8 +1,6 @@
 @extends('layouts.frontend-master')
-@section('title')
-My Wishlist	
-@endsection
 @section('frontend-content')
+@section('title') wishlist @endsection
 
 <div class="breadcrumb">
 	<div class="container">
@@ -27,18 +25,17 @@ My Wishlist
 					<th colspan="4" class="heading-title">My Wishlist</th>
 				</tr>
 			</thead>
-			<tbody>
-<div class="wishlist">
-
-</div>
+			<tbody id="wishlist">
 			
 			</tbody>
 		</table>
 	</div>
 </div>			</div><!-- /.row -->
-		</div><!-- /.sigin-in-->
-		<!-- ============================================== BRANDS CAROUSEL ============================================== -->
+        </div><!-- /.sigin-in-->
 
-<!-- ============================================== BRANDS CAROUSEL : END ============================================== -->	</div><!-- /.container -->
+		</div><!-- /.container -->
 </div><!-- /.body-content -->
+
+
 @endsection
+

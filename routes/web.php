@@ -20,6 +20,9 @@ Use App\Http\Controllers\Frontend\LanguageController;
 Use App\Http\Controllers\Frontend\IndexController;
 Use App\Http\Controllers\Frontend\CartController;
 
+Use App\Http\Controllers\SearchController;
+
+
 
 
 /*
@@ -147,10 +150,15 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     //wishlist
     //Route::post('/add-to-wishlist/{product_id}',[WishlistController::class,'addToWishlist']);
     Route::get('wishlist',[WishlistController::class,'create'])->name('wishlist');
-    //cart list show
-    // Route::get('/my-cart',[CartPageController::class,'create'])->name('cart');
-    // Route::get('/get-cart-product',[CartPageController::class,'getAllCart']);
-     Route::get('/get-wishlist-product',[WishlistController::class,'readAllProduct']);
+    Route::get('/get-wishlist-product',[WishlistController::class,'readAllProduct']);
+    Route::get('/wishlist-remove/{id}',[WishlistController::class,'destory']);
+
+    //cart
+    Route::get('my-cart',[CartController::class,'create'])->name('cart');
+    Route::get('/get-cart-product',[CartController::class,'getAllCart']);
+    Route::get('/cart-remove/{rowId}',[CartController::class,'destory']);
+    Route::get('/cart-increment/{rowId}',[CartController::class,'cartIncrement']);
+    Route::get('/cart-decrement/{rowId}',[CartController::class,'cartDecrement']);
 
 
     
@@ -183,4 +191,10 @@ Route::get('/minicart/product-remove/{rowId}',[CartController::class,'miniCartRe
 //add to wishlist without login
 Route::post('/add-to-wishlist/{product_id}',[CartController::class,'addToWishlist']);
 
+
+//search
+
+ //search product
+ Route::get('/search-products',[SearchController::class,'searchProduct'])->name('search.product');
+ Route::post('/find-products',[SearchController::class,'findProducts']);
 

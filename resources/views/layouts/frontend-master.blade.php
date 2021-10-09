@@ -37,7 +37,21 @@
 		<link href='http://fonts.googleapis.com/css?family=Roboto:300,400,500,700' rel='stylesheet' type='text/css'>
 		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,600italic,700,700italic,800' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-
+        <style>
+            .search-area{
+                position: relative;
+            }
+            #suggestProduct {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: #fff;
+                z-index: 999;
+                border-radius: 4px;
+                margin-top: 2px;
+            }
+            </style>
 
 	</head>
     <body class="cnt-home">
@@ -58,7 +72,7 @@
                     @endif
                     </a></li>
 					<li><a href="{{ route('wishlist') }}"  @yield('title')><i class="icon fa fa-heart"></i>Wishlist</a></li>
-					<li><a href=""  @yield('title')><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
+					<li><a href="{{ route('cart') }}"  @yield('title')><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
 					<li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
                     
 					<li>
@@ -125,32 +139,15 @@
 					<!-- /.contact-row -->
 <!-- ============================================================= SEARCH AREA ============================================================= -->
 <div class="search-area">
-    <form>
+    <form action="{{ route('search.product') }}" method="GET">
         <div class="control-group">
-
-            <ul class="categories-filter animate-dropdown">
-                <li class="dropdown">
-
-                    <a class="dropdown-toggle"  data-toggle="dropdown" href="category.html">Categories <b class="caret"></b></a>
-
-                    <ul class="dropdown-menu" role="menu" >
-                        <li class="menu-header">Computer</li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Clothing</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Electronics</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Shoes</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="category.html">- Watches</a></li>
-
-                    </ul>
-                </li>
-            </ul>
-
-            <input class="search-field" placeholder="Search here..." />
-
-            <a class="search-button" href="#" ></a>    
-
+            <input class="search-field" autocomplete="off" onfocus="showSearchResult()" onblur="hideSearchResult()" name="search" id="search" placeholder="Search here..." />
+            <button class="search-button"></button>
         </div>
     </form>
+    <div id="suggestProduct"></div>
 </div><!-- /.search-area -->
+<!-- ============================= SEARCH AREA : END ============== -->
 <!-- ============================================================= SEARCH AREA : END ============================================================= -->				</div><!-- /.top-search-holder -->
 
 				<div class="col-xs-12 col-sm-12 col-md-2 animate-dropdown top-cart-row">
@@ -593,7 +590,213 @@
         @endif
     </script>
 
+<script>
+    $("body").on("keyup","#search",function () {
+        let searchData = $("#search").val();
+        if (searchData.length > 0) {
+            $.ajax({
+            type:'POST',
+            url: "{{ url('/find-products') }}",
+            data:{search:searchData},
+            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            success:function(result){
+                $('#suggestProduct').html(result)
+            }
+            });
+        }
+        if(searchData.length < 1) $('#suggestProduct').html("");
+    })
+</script>
 
+
+<script>
+    function showSearchResult(){
+        $('#suggestProduct').slideDown();
+    }
+    function hideSearchResult(){
+        $('#suggestProduct').slideUp();
+    }
+</script>
+
+@yield('scripts')
+
+<script>
+    function wishlist(){
+           $.ajax({
+               type:'GET',
+                url: "{{ url('/user/get-wishlist-product') }}",
+               dataType:'json',
+               success:function(response){
+                   var rows = ""
+                  $.each(response, function(key,value){
+                      rows += `<tr>
+                       <td class="col-md-2"><img src="/${value.product.product_thambnail}" alt="imga"></td>
+                       <td class="col-md-7">
+                           <div class="product-name"><a href="#">${value.product.product_name_en}</a></div>
+   
+                           <div class="price">
+                           ${value.product.discount_price == null
+                               ? `$${value.product.selling_price}`
+                               :
+                               `$${value.product.discount_price} <span>$${value.product.selling_price}</span>`
+                           }
+                           </div>
+                       </td>
+                       <td class="col-md-2">
+                           <button class="btn-upper btn btn-primary" type="button" title="Add Cart" data-toggle="modal" data-target="#cartModal" id="${value.product_id}" onclick="productView(this.id)">Add to cart</button>
+                       </td>
+                       <td class="col-md-1 close-btn">
+                           <button type="submit" class="" id="${value.id}" onclick="wishlistRemove(this.id)" ><i class="fa fa-times"></i></button>
+                       </td>
+                   </tr>`
+   
+                  });
+   
+                  $('#wishlist').html(rows);
+   
+               }
+           })
+       }
+       wishlist();
+   
+     function wishlistRemove(id){
+         $.ajax({
+             type:'GET',
+             url: "{{ url('/user/wishlist-remove/') }}/"+id,
+             dataType:'json',
+             success:function(data){
+                 wishlist();
+                 //  start message
+                 const Toast = Swal.mixin({
+                         toast: true,
+                         position: 'top-end',
+                         showConfirmButton: false,
+                         timer: 3000
+                       })
+                      if($.isEmptyObject(data.error)){
+                           Toast.fire({
+                             type: 'success',
+                             title: data.success
+                           })
+                      }else{
+                            Toast.fire({
+                               type: 'error',
+                               title: data.error
+                           })
+            }
+                     //  end message
+             }
+         });
+     }
+   </script>
+   {{-- cart page --}}
+<script>
+ function cart(){
+        $.ajax({
+            type:'GET',
+             url: "{{ url('/user/get-cart-product') }}",
+            dataType:'json',
+            success:function(response){
+                var rows = ""
+               $.each(response.carts, function(key,value){
+                   rows += `<tr>
+					<td class="col-md-2"><img src="/${value.options.image}" alt="imga" style="height:60px; width:60px;"></td>
+					<td class="col-md-2">
+						<div class="product-name"><strong>${value.name}</strong></div>
+						<strong>
+                        $${value.price}
+						</strong>
+					</td>
+                    <td class="col-md-2">
+                        <strong>${value.options.color}</strong>
+					</td>
+                    <td class="col-md-2">
+                        ${value.options.size == null
+                            ? `<span >......</span>`
+                            :
+                            `<strong>${value.options.size}</strong>`
+                        }
+                    </td>
+                    <td class="col-md-2">
+                        ${value.qty > 1
+                        ? ` <button type="submit" class="btn btn-success btn-sm" id="${value.rowId}" onclick="cartDecrement(this.id)">-</button>`
+                        : ` <button type="submit" class="btn btn-success btn-sm" disabled>-</button>`
+                        }
+                        <input type="text" value="${value.qty}" min="1" max="100" disabled style="width:25px;">
+                        <button type="submit" id="${value.rowId}" onclick="cartIncrement(this.id)" class="btn btn-danger btn-sm">+</button>
+                    </td>
+                    <td class="col-md-1">
+                        <strong>$${value.subtotal}</strong>
+                    </td>
+					<td class="col-md-1 close-btn">
+						<button type="submit" class="" id="${value.rowId}" onclick="CartRemove(this.id)" ><i class="fa fa-times"></i></button>
+					</td>
+				</tr>`
+               });
+               $('#cartPage').html(rows);
+            }
+        })
+    }
+    cart();
+
+    function CartRemove(id){
+        $.ajax({
+             type:'GET',
+             url: "{{ url('/user/cart-remove/') }}/"+id,
+             dataType:'json',
+             success:function(data){
+                 cart();
+                 miniCart();
+                 //  start message
+                 const Toast = Swal.mixin({
+                         toast: true,
+                         position: 'top-end',
+                         showConfirmButton: false,
+                         timer: 3000
+                       })
+                      if($.isEmptyObject(data.error)){
+                           Toast.fire({
+                             type: 'success',
+                             title: data.success
+                           })
+                      }else{
+                            Toast.fire({
+                               type: 'error',
+                               title: data.error
+                           })
+            }
+                     //  end message
+             }
+         });
+    }
+    function cartIncrement(rowId){
+        $.ajax({
+            type:'GET',
+            url: "{{ url('/cart-increment/') }}/"+rowId,
+            dataType:'json',
+            success:function(data){
+                couponCalculation();
+                cart();
+                miniCart();
+            }
+        });
+    }
+    function cartDecrement(rowId){
+        $.ajax({
+            type:'GET',
+            url: "{{ url('/cart-decrement/') }}/"+rowId,
+            dataType:'json',
+            success:function(data){
+                couponCalculation();
+                cart();
+                miniCart();
+            }
+        });
+ }
+
+
+</script>
+   
 </body>
 
 </html>

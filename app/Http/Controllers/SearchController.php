@@ -39,14 +39,6 @@ class SearchController extends Controller
                             ->orWhere('short_descp_en',"LIKE","%".$request->search."%")
                             ->orWhere('short_descp_bn',"LIKE","%".$request->search."%")
                             ->take(5)->get();
-                return view('fontend.search-product',compact('products'));
-    }
-    public function autocomplete(Request $request)
-    {
-        $data = Product::select("product_name_en")
-                ->where("product_name_en","LIKE","%{$request->query}%")
-                ->get();
-   
-        return response()->json($data);
+                return view('frontend.search-product',compact('products'));
     }
 }

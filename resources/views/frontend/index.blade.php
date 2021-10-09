@@ -439,7 +439,7 @@ Home
 																@endif
 																<button>
                                                         </li>
-                                                        <button class="btn btn-primary icon" type="button" title="Add to WIshlist" id="" onclick="">
+                                                        <button class="btn btn-primary icon" type="button" title="Add to WIshlist" id="{{ $product->id }}" onclick="addToWishlist(this.id)">
                                                             <i class="icon fa fa-heart"></i>
                                                         </button>
 
