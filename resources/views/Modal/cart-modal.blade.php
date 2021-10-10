@@ -69,6 +69,8 @@
     </div>
   </div>
 {{-- cart Modal --}}
+@section('scripts')
+    
 
 
 <script type="text/javascript">
@@ -231,6 +233,7 @@
             dataType:'json',
             success:function(data){
               miniCart();
+              cart();
 
                            //  start message
                            const Toast = Swal.mixin({
@@ -291,7 +294,7 @@
   }
 </script>
 
-
+@endsection
 {{-- =============wishlist page ================== --}}
 
 

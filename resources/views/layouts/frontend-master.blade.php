@@ -772,10 +772,10 @@
     function cartIncrement(rowId){
         $.ajax({
             type:'GET',
-            url: "{{ url('/cart-increment/') }}/"+rowId,
+            url: "{{ url('/user/cart-increment/') }}/"+rowId,
             dataType:'json',
             success:function(data){
-                couponCalculation();
+               
                 cart();
                 miniCart();
             }
@@ -784,10 +784,10 @@
     function cartDecrement(rowId){
         $.ajax({
             type:'GET',
-            url: "{{ url('/cart-decrement/') }}/"+rowId,
+            url: "{{ url('/user/cart-decrement/') }}/"+rowId,
             dataType:'json',
             success:function(data){
-                couponCalculation();
+                
                 cart();
                 miniCart();
             }
