@@ -160,6 +160,11 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::get('/cart-increment/{rowId}',[CartController::class,'cartIncrement']);
     Route::get('/cart-decrement/{rowId}',[CartController::class,'cartDecrement']);
 
+    //coupon apply
+    Route::post('/coupon-apply',[CartController::class,'couponApply']);
+    Route::get('/coupon-calculation',[CartController::class,'couponCalcaultion']);
+    Route::get('/coupon-remove',[CartController::class,'removeCoupon']);
+
 
     
 
