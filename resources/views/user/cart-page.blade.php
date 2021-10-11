@@ -72,7 +72,7 @@
 				<tr>
 					<td>
 						<div class="cart-checkout-btn pull-right">
-							<a href="" class="btn btn-primary checkout-btn">PROCCED TO CHEKOUT</a>
+							<a href="{{ route('checkout') }}" class="btn btn-primary checkout-btn">PROCCED TO CHEKOUT</a>
 						</div>
 					</td>
 				</tr>

@@ -73,7 +73,7 @@
                     </a></li>
 					<li><a href="{{ route('wishlist') }}"  @yield('title')><i class="icon fa fa-heart"></i>Wishlist</a></li>
 					<li><a href="{{ route('cart') }}"  @yield('title')><i class="icon fa fa-shopping-cart"></i>My Cart</a></li>
-					<li><a href="#"><i class="icon fa fa-check"></i>Checkout</a></li>
+					<li><a href="{{ route('checkout') }}" @yield('title')><i class="icon fa fa-check"></i>Checkout</a></li>
                     
 					<li>
                         @auth
@@ -259,7 +259,7 @@
                         @endif
                     
                        @php
-                        $subsubcategory = App\Models\Subsubcategory::where('subcategory_id',$subcat->id)->orderBy('subsubcategory_name_en','ASC')->get();
+                        $subsubcategory = App\Models\SubsubCategory::where('subcategory_id',$subcat->id)->orderBy('subsubcategory_name_en','ASC')->get();
                        @endphp
 
                        @foreach ($subsubcategory as $subsubcat)
@@ -541,7 +541,7 @@
 
 
 
-    @include('modal.cart-modal')
+    @include('Modal.cart-modal')
 </footer>
 <!-- ============================================================= FOOTER : END============================================================= -->
 

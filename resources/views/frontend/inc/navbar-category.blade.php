@@ -36,7 +36,7 @@
 													 @endif
 														<ul class="links list-unstyled">
 															@php
-															 $subsucategories = App\Models\Subsubcategory::where('subcategory_id',$subcat->id)->orderBy('subsubcategory_name_en','ASC')->get();
+															 $subsucategories = App\Models\SubsubCategory::where('subcategory_id',$subcat->id)->orderBy('subsubcategory_name_en','ASC')->get();
 															@endphp
 															@foreach ($subsucategories as $subsubcat)
 															<li>

@@ -164,7 +164,9 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::post('/coupon-apply',[CartController::class,'couponApply']);
     Route::get('/coupon-calculation',[CartController::class,'couponCalcaultion']);
     Route::get('/coupon-remove',[CartController::class,'removeCoupon']);
-
+   //checkout
+    Route::get('/checkout',[CartController::class,'checkoutCreate'])->name('checkout');
+    
 
     
 
@@ -191,6 +193,7 @@ Route::get('product/view/modal/{id}',[IndexController::class,'productViewAjax'])
 Route::post('cart/data/store/{id}',[CartController::class,'addToCart']);
 //minicart
 Route::get('product/mini/cart',[CartController::class,'miniCart']);
+
 //cart remove
 Route::get('/minicart/product-remove/{rowId}',[CartController::class,'miniCartRemove']);
 //add to wishlist without login

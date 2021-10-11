@@ -207,6 +207,36 @@ class CartController extends Controller
         Session::forget('coupon');
         return response()->json(['success' => 'Coupon Remove Success']);
     }
+    //checkout
+    public function checkoutCreate()
+    {
+        if (Auth::check())
+        {
+            if(Cart::total()>0)
+            {
+                $carts = Cart::content();
+                $cartQty = Cart::count();
+                $cartTotal = Cart::total();
+                return view('frontend.checkout',compact('carts','cartQty','cartTotal'));
+            }
+            else
+            {
+                $notification=array(
+                    'message'=>'Shopping First',
+                    'alert-type'=>'error'
+                );
+                return Redirect()->to('/')->with($notification);
+            }
+        }
+        else
+        {
+            $notification=array(
+                'message'=>'Please Login First !!',
+                'alert-type'=>'success'
+            );
+            return Redirect()->route('login')->with($notification);
+        }
+    }
 
    
 }
