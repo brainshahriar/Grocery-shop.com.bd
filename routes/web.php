@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\User\UserController;
 Use App\Http\Controllers\User\WishlistController;
 Use App\Http\Controllers\User\CartPageController;
+Use App\Http\Controllers\User\CheckoutController;
+
 
 Use App\Http\Controllers\Admin\AdminController;
 Use App\Http\Controllers\Admin\BrandController;
@@ -137,7 +139,7 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
 
 });
 
-//admin route
+//admin route end
 
 //user route
     Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User'], function(){
@@ -166,7 +168,9 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::get('/coupon-remove',[CartController::class,'removeCoupon']);
    //checkout
     Route::get('/checkout',[CartController::class,'checkoutCreate'])->name('checkout');
-    
+    Route::get('district-get/ajax/{division_id}',[CheckoutController::class,'getDistricWithtAjax']);
+    Route::get('state-get/ajax/{district_id}',[CheckoutController::class,'getStateWithtAjax']);
+
 
     
 

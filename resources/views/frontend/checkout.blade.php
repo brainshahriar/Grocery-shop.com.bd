@@ -37,54 +37,77 @@
 	    <div class="panel-body">
 			<div class="row">		
 
-				<!-- guest-login -->			
-				<div class="col-md-6 col-sm-6 guest-login">
-					<h4 class="checkout-subtitle">Guest or Register Login</h4>
-					<p class="text title-tag-line">Register with us for future convenience:</p>
-
-					<!-- radio-form  -->
-					<form class="register-form" role="form">
-					    <div class="radio radio-checkout-unicase">  
-					        <input id="guest" type="radio" name="text" value="guest" checked>  
-					        <label class="radio-button guest-check" for="guest">Checkout as Guest</label>  
-					          <br>
-					        <input id="register" type="radio" name="text" value="register">  
-					        <label class="radio-button" for="register">Register</label>  
-					    </div>  
-					</form>
-					<!-- radio-form  -->
-
-					<h4 class="checkout-subtitle outer-top-vs">Register and save time</h4>
-					<p class="text title-tag-line ">Register with us for future convenience:</p>
-					
-					<ul class="text instruction inner-bottom-30">
-						<li class="save-time-reg">- Fast and easy check out</li>
-						<li>- Easy access to your order history and status</li>
-					</ul>
-
-					<button type="submit" class="btn-upper btn btn-primary checkout-page-button checkout-continue ">Continue</button>
-				</div>
-				<!-- guest-login -->
-
+			<!-- already-registered-login -->
+            <div class="col-md-6 col-sm-6 already-registered-login">
+                <h4 class="checkout-subtitle">Shipping Address?</h4>
+                <form class="register-form" role="form">
+                    <div class="form-group">
+                    <label class="info-title" for="exampleInputEmail1">Name <span>*</span></label>
+                    <input type="text" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="Full Name" value="{{ Auth::user()->name }}">
+                  </div>
+                  <div class="form-group">
+                    <label class="info-title" for="exampleInputEmail1">Email <span>*</span></label>
+                    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="Email" value="{{ Auth::user()->email }}">
+                  </div>
+                  <div class="form-group">
+                    <label class="info-title" for="exampleInputEmail1">Phone <span>*</span></label>
+                    <input type="text" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="Phone" value="{{ Auth::user()->phone }}">
+                  </div>
+                  <div class="form-group">
+                    <label class="info-title" for="exampleInputEmail1">Post Code <span>*</span></label>
+                    <input type="text" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="Post Code" >
+                  </div>
+          
+            </div>	
+            <!-- already-registered-login -->
 				<!-- already-registered-login -->
 				<div class="col-md-6 col-sm-6 already-registered-login">
-					<h4 class="checkout-subtitle">Already registered?</h4>
-					<p class="text title-tag-line">Please log in below:</p>
-					<form class="register-form" role="form">
-						<div class="form-group">
-					    <label class="info-title" for="exampleInputEmail1">Email Address <span>*</span></label>
-					    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="">
-					  </div>
-					  <div class="form-group">
-					    <label class="info-title" for="exampleInputPassword1">Password <span>*</span></label>
-					    <input type="password" class="form-control unicase-form-control text-input" id="exampleInputPassword1" placeholder="">
-					    <a href="#" class="forgot-password">Forgot your Password?</a>
-					  </div>
+	
+                    
+                        <div class="form-group">
+                            <label class="form-control-label">Select Division: <span class="tx-danger">*</span></label>
+                            <select class="form-control select2-show-search" data-placeholder="Select One" name="division_id">
+                              <option label="Choose one"></option>
+                              @foreach ($division as $div)
+                              <option value="{{ $div->id }}">{{ ucwords($div->division_name) }}</option>
+                              @endforeach
+                            </select>
+                            @error('division_id')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                          </div>
+
+                          <div class="form-group">
+                            <label class="form-control-label">Select District: <span class="tx-danger">*</span></label>
+                            <select class="form-control select2-show-search" data-placeholder="Select One" name="district_id">
+                              <option label="Choose one"></option>
+                     
+                            </select>
+                            @error('district_id')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                          </div>
+                          <div class="form-group">
+                            <label class="form-control-label">Select State: <span class="tx-danger">*</span></label>
+                            <select class="form-control select2-show-search" data-placeholder="Select One" name="state_id">
+                              <option label="Choose one"></option>
+                     
+                            </select>
+                            @error('state_id')
+                                <span class="text-danger">{{ $message }}</span>
+                            @enderror
+                            <div class="form-group">
+                                <label class="info-title" for="exampleInputEmail1">Notes <span>*</span></label>
+                                <textarea class="form-control" name="notes" id="" cols="30" rows="5" placeholder="Notes"></textarea>
+                              </div>
+                          </div>
+           
 					  <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Login</button>
 					</form>
 				</div>	
 				<!-- already-registered-login -->		
 
+        
 			</div>			
 		</div>
 		<!-- panel-body  -->
@@ -161,4 +184,50 @@
 		<!-- =================== BRANDS CAROUSEL =================================== -->
 	</div><!-- /.container -->
 </div><!-- /.body-content -->
+
+<script src="{{asset('backend')}}/lib/jquerysubsubcategory/jquery-2.2.4.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('select[name="division_id"]').on('change', function(){
+        var division_id = $(this).val();
+        if(division_id) {
+            $.ajax({
+                url: "{{  url('/user/district-get/ajax') }}/"+division_id,
+                type:"GET",
+                dataType:"json",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success:function(data) {
+                   var d =$('select[name="district_id"]').empty();
+                      $.each(data, function(key, value){
+                          $('select[name="district_id"]').append('<option value="'+ value.id +'">' + value.district_name + '</option>');
+                      });
+                },
+            });
+        } else {
+            alert('danger');
+        }
+    });
+
+    $('select[name="district_id"]').on('change', function(){
+        var district_id = $(this).val();
+        if(district_id) {
+            $.ajax({
+                url: "{{  url('/user/state-get/ajax') }}/"+district_id,
+                type:"GET",
+                dataType:"json",
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success:function(data) {
+                   var d =$('select[name="state_id"]').empty();
+                      $.each(data, function(key, value){
+                          $('select[name="state_id"]').append('<option value="'+ value.id +'">' + value.state_name + '</option>');
+                      });
+                },
+            });
+        } else {
+            alert('danger');
+        }
+    });
+});
+</script>
 @endsection

@@ -11,6 +11,9 @@ use App\Models\Wishlist;
 use Carbon\Carbon;
 use Session;
 use App\Models\Coupon;
+use App\Models\ShipDivision;
+use App\Models\ShipDistrict;
+use App\Models\ShipState;
 class CartController extends Controller
 
 {
@@ -217,7 +220,8 @@ class CartController extends Controller
                 $carts = Cart::content();
                 $cartQty = Cart::count();
                 $cartTotal = Cart::total();
-                return view('frontend.checkout',compact('carts','cartQty','cartTotal'));
+                $division=ShipDivision::orderBy('division_name','ASC')->get();
+                return view('frontend.checkout',compact('carts','cartQty','cartTotal','division'));
             }
             else
             {
