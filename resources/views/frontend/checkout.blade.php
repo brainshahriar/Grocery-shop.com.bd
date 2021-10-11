@@ -16,19 +16,14 @@
 	<div class="container">
 		<div class="checkout-box ">
 			<div class="row">
+      <form class="register-form" role="form" action="{{ route('user.checkout.store') }}" method="POST">
+          @csrf
 				<div class="col-md-8">
 					<div class="panel-group checkout-steps" id="accordion">
 						<!-- checkout-step-01  -->
 <div class="panel panel-default checkout-step-01">
 
-	<!-- panel-heading -->
-		<div class="panel-heading">
-    	<h4 class="unicase-checkout-title">
-	        <a data-toggle="collapse" class="" data-parent="#accordion" href="#collapseOne">
-	          <span>1</span>Checkout Method
-	        </a>
-	     </h4>
-    </div>
+
     <!-- panel-heading -->
 
 	<div id="collapseOne" class="panel-collapse collapse in">
@@ -40,22 +35,22 @@
 			<!-- already-registered-login -->
             <div class="col-md-6 col-sm-6 already-registered-login">
                 <h4 class="checkout-subtitle">Shipping Address?</h4>
-                <form class="register-form" role="form">
+            
                     <div class="form-group">
                     <label class="info-title" for="exampleInputEmail1">Name <span>*</span></label>
-                    <input type="text" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="Full Name" value="{{ Auth::user()->name }}">
+                    <input type="text" data-validation="required" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="Full Name" name="shipping_name" value="{{ Auth::user()->name }}">
                   </div>
                   <div class="form-group">
                     <label class="info-title" for="exampleInputEmail1">Email <span>*</span></label>
-                    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="Email" value="{{ Auth::user()->email }}">
+                    <input type="email" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="Email" name="shipping_email" value="{{ Auth::user()->email }}">
                   </div>
                   <div class="form-group">
                     <label class="info-title" for="exampleInputEmail1">Phone <span>*</span></label>
-                    <input type="text" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="Phone" value="{{ Auth::user()->phone }}">
+                    <input type="text" data-validation="required" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="Phone" name="shipping_phone" value="{{ Auth::user()->phone }}">
                   </div>
                   <div class="form-group">
                     <label class="info-title" for="exampleInputEmail1">Post Code <span>*</span></label>
-                    <input type="text" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="Post Code" >
+                    <input type="text" name="post_code" class="form-control unicase-form-control text-input" id="exampleInputEmail1" placeholder="Post Code" >
                   </div>
           
             </div>	
@@ -66,7 +61,7 @@
                     
                         <div class="form-group">
                             <label class="form-control-label">Select Division: <span class="tx-danger">*</span></label>
-                            <select class="form-control select2-show-search" data-placeholder="Select One" name="division_id">
+                            <select class="form-control select2-show-search" data-placeholder="Select One" name="division_id" data-validation="required">
                               <option label="Choose one"></option>
                               @foreach ($division as $div)
                               <option value="{{ $div->id }}">{{ ucwords($div->division_name) }}</option>
@@ -79,7 +74,7 @@
 
                           <div class="form-group">
                             <label class="form-control-label">Select District: <span class="tx-danger">*</span></label>
-                            <select class="form-control select2-show-search" data-placeholder="Select One" name="district_id">
+                            <select class="form-control select2-show-search" data-placeholder="Select One" name="district_id" data-validation="required">
                               <option label="Choose one"></option>
                      
                             </select>
@@ -98,12 +93,12 @@
                             @enderror
                             <div class="form-group">
                                 <label class="info-title" for="exampleInputEmail1">Notes <span>*</span></label>
-                                <textarea class="form-control" name="notes" id="" cols="30" rows="5" placeholder="Notes"></textarea>
+                                <textarea class="form-control" name="notes" id="" cols="30" rows="5" placeholder="Notes" ></textarea>
                               </div>
                           </div>
            
-					  <button type="submit" class="btn-upper btn btn-primary checkout-page-button">Login</button>
-					</form>
+				
+				
 				</div>	
 				<!-- already-registered-login -->		
 
@@ -179,6 +174,41 @@
 						</div>
 					</div> 					<!-- checkout-progress-sidebar -->
 			</div>
+            <div class="col-md-4">
+                <!-- checkout-progress-sidebar -->
+                <div class="checkout-progress-sidebar ">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="unicase-checkout-title">Select Payment Method</h4>
+                            </div>
+                            <div class="">
+                                <ul class="nav nav-checkout-progress list-unstyled">
+                                    <li>
+                                    
+                                        <input type="radio" name="payment_method" value="stripe">
+                                        <label for="">Stripe</label>
+                                    </li>
+                                    <li>
+                                        
+                                        <input type="radio" name="payment_method" value="card">
+                                        <label for="">Card</label>
+                                    </li>
+                                    <li>
+                                       
+                                        <input type="radio" name="payment_method" value="handcash">
+                                        <label for="">Cash On Delivery</label>
+                                    </li>
+                                    
+                                    <button type="submit" class="btn-upper btn btn-primary checkout-page-button pull-right">Payment Step</button>	
+                                </ul>
+                   	
+                            </div>
+                        </div>
+                    </div>
+                </div> 					<!-- checkout-progress-sidebar -->
+        </div>
+    </form>
 			</div><!-- /.row -->
 		</div><!-- /.checkout-box -->
 		<!-- =================== BRANDS CAROUSEL =================================== -->
@@ -198,6 +228,7 @@
                 dataType:"json",
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success:function(data) {
+                    $('select[name="state_id"]').empty();
                    var d =$('select[name="district_id"]').empty();
                       $.each(data, function(key, value){
                           $('select[name="district_id"]').append('<option value="'+ value.id +'">' + value.district_name + '</option>');

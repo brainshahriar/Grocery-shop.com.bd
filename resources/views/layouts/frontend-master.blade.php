@@ -568,6 +568,12 @@
     <script src="{{ asset('frontend') }}/assets/js/wow.min.js"></script>
 	<script src="{{ asset('frontend') }}/assets/js/scripts.js"></script>
     <script src="{{ asset('frontend') }}/assets/js/sweetalert2@8.js"></script>
+    <script type="text/javascript" src="{{ asset('common' )}}/jquery.form-validaton-min.js"></script>
+    <script>
+        $.validate({
+            lang:'en'
+        });
+    </script>
 
     <script type="text/javascript" src="{{ asset('backend') }}/lib/toastr/toastr.min.js"></script>
     <script>
@@ -748,6 +754,8 @@
                  cart();
                  miniCart();
                  couponCalculation();
+                 $('#couponField').show();
+                 $('#coupon_name').val();
                  //  start message
                  const Toast = Swal.mixin({
                          toast: true,

@@ -170,6 +170,7 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::get('/checkout',[CartController::class,'checkoutCreate'])->name('checkout');
     Route::get('district-get/ajax/{division_id}',[CheckoutController::class,'getDistricWithtAjax']);
     Route::get('state-get/ajax/{district_id}',[CheckoutController::class,'getStateWithtAjax']);
+    Route::post('payment',[CheckoutController::class,'storeCheckout'])->name('user.checkout.store');
 
 
     
