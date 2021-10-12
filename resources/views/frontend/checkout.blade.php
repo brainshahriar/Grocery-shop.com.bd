@@ -93,7 +93,7 @@
                             @enderror
                             <div class="form-group">
                                 <label class="info-title" for="exampleInputEmail1">Notes <span>*</span></label>
-                                <textarea class="form-control" name="notes" id="" cols="30" rows="5" placeholder="Notes" ></textarea>
+                                <textarea data-validation="required" class="form-control" name="notes" id="" cols="30" rows="5" placeholder="Notes" ></textarea>
                               </div>
                           </div>
            

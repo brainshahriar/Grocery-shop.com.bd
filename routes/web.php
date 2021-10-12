@@ -7,6 +7,7 @@ use App\Http\Controllers\User\UserController;
 Use App\Http\Controllers\User\WishlistController;
 Use App\Http\Controllers\User\CartPageController;
 Use App\Http\Controllers\User\CheckoutController;
+Use App\Http\Controllers\User\StripeController;
 
 
 Use App\Http\Controllers\Admin\AdminController;
@@ -171,6 +172,9 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::get('district-get/ajax/{division_id}',[CheckoutController::class,'getDistricWithtAjax']);
     Route::get('state-get/ajax/{district_id}',[CheckoutController::class,'getStateWithtAjax']);
     Route::post('payment',[CheckoutController::class,'storeCheckout'])->name('user.checkout.store');
+
+    //stripe payment
+    Route::post('stripe/payment-store',[StripeController::class,'store'])->name('stripe.order');
 
 
     
