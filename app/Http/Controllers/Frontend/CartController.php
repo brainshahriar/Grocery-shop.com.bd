@@ -198,7 +198,8 @@ class CartController extends Controller
                 'discount_amount' => session()->get('coupon')['discount_amount'],
                 'total_amount' => session()->get('coupon')['total_amount'],
             ));
-        }else {
+        }
+        else {
             return response()->json(array(
                 'total' => Cart::total(),
             ));
