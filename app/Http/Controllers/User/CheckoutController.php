@@ -53,7 +53,7 @@ class CheckoutController extends Controller
         }
         elseif($request->payment_method=='sslEasy')
         {
-            return view ('frontend.payment.easyPayment',compact('data','total_amount'));
+            return view ('frontend.payment.easyPayment',compact('data','total_amount','carts'));
 
         }
         else

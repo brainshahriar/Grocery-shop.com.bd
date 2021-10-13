@@ -32,7 +32,7 @@
                                 <br>
                                <span>Size : <small class="text-muted">{{ $item->options->size }}</small></span> 
                             </div>
-                            <span class="text-muted">{{ $item->price }}</span>
+                            <span>Price : <small class="text-muted">{{ $item->price }}</small></span> 
                         </li>
                         @endforeach
              
@@ -61,7 +61,6 @@
                         <hr class="mb-4">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id="same-address">
-                            <input type="hidden" value="1200" name="amount" id="total_amount" required/>
                             <label class="custom-control-label" for="same-address">Shipping address is the same as my billing
                                 address</label>
                         </div>

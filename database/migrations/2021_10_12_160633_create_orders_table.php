@@ -24,12 +24,12 @@ class CreateOrdersTable extends Migration
             $table->string('phone');
             $table->integer('post_code');
             $table->string('notes')->nullable();
-            $table->string('payment_type');
+            $table->string('payment_type')->nullable();
             $table->string('payment_method')->nullable();
             $table->string('transaction_id');
             $table->string('currency');
             $table->float('amount',8,2);
-            $table->string('order_number');
+            $table->string('order_number')->nullable();
             $table->string('invoice_no');
             $table->string('order_date');
             $table->string('order_month');
