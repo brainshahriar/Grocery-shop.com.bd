@@ -177,6 +177,11 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     //stripe payment
     Route::post('stripe/payment-store',[StripeController::class,'store'])->name('stripe.order');
 
+    //user order show
+
+    Route::get('orders',[UserController::class,'orderCreate'])->name('my-orders');
+    Route::get('order-view/{order_id}',[UserController::class,'orderView']);
+
 
     
 

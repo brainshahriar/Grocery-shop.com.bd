@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
 use Auth;
+use App\Models\Order;
+use App\Models\OrderItem;
 //use Intervention\Image\Image;
 use Image;
 use Hash;
@@ -135,6 +137,20 @@ class UserController extends Controller
              );
              return Redirect()->back()->with($notification);
             }
+       }
+
+       //user order
+       public function orderCreate()
+       {
+           $orders=Order::where('user_id',Auth::id())->orderBy('id','DESC')->get();
+           return view('user.order.orders',compact('orders'));
+       }
+       //view order
+       public function orderView($order_id)
+       {
+           $order=Order::with('division','district','state','user')->where('id',$order_id)->where('user_id',Auth::id())->first();
+           $orderItems=OrderItem::with('product')->where('order_id',$order_id)->orderBy('id','DESC')->get();
+           return view('user.order.view-order',compact('order','orderItems'));
        }
 
     

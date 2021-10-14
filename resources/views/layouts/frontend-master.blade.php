@@ -822,7 +822,10 @@
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},    
             success:function(data){
                 couponCalculation();
-                
+                if(data.validity==true)
+                {
+                    $('#couponField').hide();
+                }
                       //  start message
                       const Toast = Swal.mixin({
                          toast: true,
