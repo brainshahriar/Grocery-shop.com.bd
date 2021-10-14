@@ -13,6 +13,7 @@ use App\Models\OrderItem;
 //use Intervention\Image\Image;
 use Image;
 use Hash;
+use PDF;
 
 class UserController extends Controller
 {
@@ -151,6 +152,18 @@ class UserController extends Controller
            $order=Order::with('division','district','state','user')->where('id',$order_id)->where('user_id',Auth::id())->first();
            $orderItems=OrderItem::with('product')->where('order_id',$order_id)->orderBy('id','DESC')->get();
            return view('user.order.view-order',compact('order','orderItems'));
+       }
+
+       //invoice download
+       public function invoiceDownload($order_id)
+       {
+        $order=Order::with('division','district','state','user')->where('id',$order_id)->where('user_id',Auth::id())->first();
+        $orderItems=OrderItem::with('product')->where('order_id',$order_id)->orderBy('id','DESC')->get();
+        $pdf = PDF::loadView('user.order.invoice',compact('order','orderItems'))->setPaper('a4')->setOptions([
+            'tempDir'=>public_path(),
+            'chroot'=>public_path(),
+        ]);
+        return $pdf->download('invoice.pdf');
        }
 
     
