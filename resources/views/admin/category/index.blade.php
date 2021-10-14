@@ -1,4 +1,5 @@
 @extends('layouts.admin-master')
+@section('admin-content')
 @section('categories') active show-sub @endsection
 @section('add-category','active')
 
@@ -87,4 +88,4 @@
         </div>
     </div>
 
-  
+  @endsection
