@@ -13,6 +13,8 @@
       <a href="{{ route('update-password') }}" class="btn btn-primary btn-sm btn-block">Change Password</a>
 
       <a href="{{ route('my-orders') }}" class="btn btn-primary btn-sm btn-block">My Orders</a>
+      <a href="{{ route('my-orders') }}" class="btn btn-primary btn-sm btn-block">Return Orders</a>
+      <a href="{{ route('my-orders') }}" class="btn btn-primary btn-sm btn-block">Cancel Orders</a>
 
       <a href="{{ route('logout') }}" class="btn btn-danger btn-sm btn-block"  onclick="event.preventDefault();
       document.getElementById('logout-form').submit();">Log Out</a>

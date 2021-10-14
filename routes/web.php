@@ -138,6 +138,8 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::post('state/update',[ShipAreaController::class,'stateUpdate'])->name('state-update');
     Route::get('state-delete/{id}',[ShipAreaController::class,'stateDestroy']);
 
+    //orders
+    
 
 });
 
