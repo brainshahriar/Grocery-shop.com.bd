@@ -32,7 +32,6 @@
                             <th class="wd-25p">Amount</th>
                             <th class="wd-25p">Tnx ID</th>
                             <th class="wd-25p">Status</th>
-                            <th class="wd-25p">Status</th>
                           
                 
                             <th class="wd-20p">Action</th> 

@@ -18,6 +18,7 @@ Use App\Http\Controllers\Admin\SliderController;
 Use App\Http\Controllers\Admin\CouponController;
 Use App\Http\Controllers\Admin\ShipAreaController;
 Use App\Http\Controllers\Admin\OrderController;
+Use App\Http\Controllers\Admin\ReportController;
 
 
 Use App\Http\Controllers\Frontend\LanguageController;
@@ -160,6 +161,9 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::get('invoice-download/{order_id}',[OrderController::class,'downloadInvoice']);
     //delete order
     Route::get('pending/orders-delete/{order_id}',[OrderController::class,'destroy']);
+    //reports
+    Route::get('reports',[ReportController::class,'index'])->name('reports');
+
 
 });
 
@@ -211,6 +215,7 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     //return orders
     Route::post('return/orders-submit',[UserController::class,'returnOrderSubmit'])->name('user-return-order');
     Route::get('return/orders',[UserController::class,'returnOrder'])->name('return-orders');
+    Route::get('cancel/orders',[UserController::class,'cancelOrder'])->name('cancel-orders');
 
 
 
