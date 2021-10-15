@@ -163,6 +163,9 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::get('pending/orders-delete/{order_id}',[OrderController::class,'destroy']);
     //reports
     Route::get('reports',[ReportController::class,'index'])->name('reports');
+    Route::post('reports/by-date',[ReportController::class,'reportByDate'])->name('search-by-date');
+    Route::post('reports/by-month',[ReportController::class,'reportByMonth'])->name('search-by-month');
+    Route::post('reports/by-year',[ReportController::class,'reportByYear'])->name('search-by-year');
 
 
 });

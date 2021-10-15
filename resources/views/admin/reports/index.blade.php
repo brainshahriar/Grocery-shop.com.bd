@@ -19,7 +19,7 @@
                 <div class="card">
                     <div class="card-header"> Search By Date </div>
                         <div class="card-body">
-                            <form action="{{ route('brand-store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('search-by-date') }}" method="POST" >
                                 @csrf
                                 <div class="form-group">
                                   <label class="form-control-label">Select Date: <span class="tx-danger">*</span></label>
@@ -42,7 +42,7 @@
                 <div class="card">
                     <div class="card-header"> Search By Month </div>
                         <div class="card-body">
-                            <form action="{{ route('brand-store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('search-by-month') }}" method="POST" >
                                 @csrf
                                 <div class="form-group">
                                   <label class="form-control-label">Select Month: <span class="tx-danger">*</span></label>
@@ -94,7 +94,7 @@
                 <div class="card">
                     <div class="card-header"> Search By Year </div>
                         <div class="card-body">
-                            <form action="{{ route('brand-store') }}" method="POST" enctype="multipart/form-data">
+                            <form action="{{ route('search-by-year') }}" method="POST" >
                                 @csrf
                                 <div class="form-group">
                                 <label class="form-control-label">Select Year: <span class="tx-danger">*</span></label>

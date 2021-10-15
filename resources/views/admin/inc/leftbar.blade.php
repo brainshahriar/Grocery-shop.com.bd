@@ -1,6 +1,6 @@
 
     <!-- ########## START: LEFT PANEL ########## -->
-    <div class="sl-logo"><a href=""><i class="icon ion-android-star-outline"></i> WinBird</a></div>
+    <div class="sl-logo"><a href=""><i class="icon ion-android-star-outline"></i>ASM</a></div>
     <div class="sl-sideleft">
  
 
