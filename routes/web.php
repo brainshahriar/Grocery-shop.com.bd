@@ -142,13 +142,22 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     //orders
     Route::get('pending-orders',[OrderController::class,'pendingOrder'])->name('pending-orders');
     Route::get('orders-view/{id}',[OrderController::class,'viewOrders']);
-    Route::get('confirmed-orders',[OrderController::class,'confirmedOrder'])->name('confirmed-orders');
+    Route::get('confirmed-orders',[OrderController::class,'confirmOrder'])->name('confirmed-orders');
     Route::get('processing-orders',[OrderController::class,'processingOrder'])->name('processing-orders');
     Route::get('picked-orders',[OrderController::class,'pickedOrders'])->name('picked-orders');
     Route::get('shipped-orders',[OrderController::class,'shippedOrders'])->name('shipped-orders');
     Route::get('delivered-orders',[OrderController::class,'deliveredOrders'])->name('delivered-orders');
     Route::get('cancel-orders',[OrderController::class,'cancelOrders'])->name('order-cancel');
 
+    //status
+    Route::get('pending-to-confirm/{order_id}',[OrderController::class,'pendingToConfirm']);
+    Route::get('pending-to-cancel/{order_id}',[OrderController::class,'pendingToCancel']);
+    Route::get('confirm-to-processing/{order_id}',[OrderController::class,'confirmToProcess']);
+    Route::get('processing-to-picked/{order_id}',[OrderController::class,'processToPicked']);
+    Route::get('picked-to-shipped/{order_id}',[OrderController::class,'pickedToShipped']);
+    Route::get('shipped-to-delivery/{order_id}',[OrderController::class,'shippedToDelivery']);
+    //invoice download
+    Route::get('invoice-download/{order_id}',[OrderController::class,'downloadInvoice']);
 
 });
 
@@ -162,6 +171,9 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::post('update/image',[UserController::class,'updateImage'])->name('update-image');
     Route::get('update/password',[UserController::class,'updatePassPage'])->name('update-password');
     Route::post('store/password',[UserController::class,'storePassword'])->name('store-password');
+
+    
+
     //wishlist
 
     //Route::post('/add-to-wishlist/{product_id}',[WishlistController::class,'addToWishlist']);
