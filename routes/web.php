@@ -158,6 +158,8 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::get('shipped-to-delivery/{order_id}',[OrderController::class,'shippedToDelivery']);
     //invoice download
     Route::get('invoice-download/{order_id}',[OrderController::class,'downloadInvoice']);
+    //delete order
+    Route::get('pending/orders-delete/{order_id}',[OrderController::class,'destroy']);
 
 });
 

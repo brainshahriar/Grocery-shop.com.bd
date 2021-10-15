@@ -149,5 +149,14 @@ class OrderController extends Controller
         ]);
         return $pdf->download('invoice.pdf');
     }
+    public function destroy($order_id)
+    {
+        Order::findOrFail($order_id)->delete();
+        $notification=array(
+            'message'=>'Delete Success',
+            'alert-type'=>'success'
+        );
+        return Redirect()->back()->with($notification);
+    }
 
 }

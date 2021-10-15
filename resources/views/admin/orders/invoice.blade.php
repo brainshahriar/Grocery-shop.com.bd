@@ -48,14 +48,14 @@
     <tr>
         <td valign="top">
           {{-- <img src="" alt="" width="150"/> --}}
-          <h2 style="color: green; font-size: 26px;"><strong>SHopMama</strong></h2>
+          <h2 style="color: green; font-size: 26px;"><strong>ASM</strong></h2>
         </td>
         <td align="right">
             <pre class="font" >
-               ShopMama Head Office
-               Email:shopmama@gmail.com <br>
-               Mob: 01722260010 <br>
-               Dhaka 1207,Dhanmondi:#4 <br>
+               ASM Head Office
+               Email:shahriarmehedi94@gmail.com <br>
+               Mob: 01317752207 <br>
+               Dhaka 1207,Bashundhora:#4 <br>
                Dhaka ,Bangladesh
             </pre>
         </td>

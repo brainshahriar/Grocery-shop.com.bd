@@ -35,7 +35,7 @@
                             <th class="wd-25p">Status</th>
                           
                 
-                            <th class="wd-20p">Action</th>
+                            <th class="wd-20p">Action</th> 
                           </tr>
                         </thead>
                         <tbody>
