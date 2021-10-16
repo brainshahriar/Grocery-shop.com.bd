@@ -53,6 +53,10 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard');
 
 
+
+    //read all users
+    Route::get('all-users',[AdminController::class,'allUsers'])->name('all-users');
+
     //brands
     Route::get('all-brand',[BrandController::class,'index'])->name('brand');
     Route::post('brand/store',[BrandController::class,'brandStore'])->name('brand-store');
