@@ -19,7 +19,7 @@ Use App\Http\Controllers\Admin\CouponController;
 Use App\Http\Controllers\Admin\ShipAreaController;
 Use App\Http\Controllers\Admin\OrderController;
 Use App\Http\Controllers\Admin\ReportController;
-
+Use App\Http\Controllers\Admin\RoleController;
 
 Use App\Http\Controllers\Frontend\LanguageController;
 Use App\Http\Controllers\Frontend\IndexController;
@@ -49,7 +49,7 @@ Auth::routes();
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //admin route
-Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Admin'], function(){
+Route::group(['prefix'=>'admin','middleware' =>['admin','auth']], function(){
     Route::get('dashboard',[AdminController::class,'index'])->name('admin.dashboard');
 
 
@@ -171,13 +171,17 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth'],'namespace'=>'Ad
     Route::post('reports/by-month',[ReportController::class,'reportByMonth'])->name('search-by-month');
     Route::post('reports/by-year',[ReportController::class,'reportByYear'])->name('search-by-year');
 
+    //role & permission
+    Route::resource('role',RoleController::class);
+
+
 
 });
 
 //admin route end
 
 //user route
-    Route::group(['prefix'=>'user','middleware' =>['user','auth'],'namespace'=>'User'], function(){
+    Route::group(['prefix'=>'user','middleware' =>['user','auth']], function(){
     Route::get('dashboard',[UserController::class,'index'])->name('user.dashboard');
     Route::post('update/data',[UserController::class,'updateData'])->name('update-profile');
     Route::get('image',[UserController::class,'imagePage'])->name('user-image');

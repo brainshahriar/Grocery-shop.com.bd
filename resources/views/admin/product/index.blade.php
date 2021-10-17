@@ -1,4 +1,5 @@
 @extends('layouts.admin-master')
+@section('admin-content')
 @section('products')
     active show-sub
 @endsection
@@ -102,3 +103,4 @@
         </div>
     </div>
 
+@endsection

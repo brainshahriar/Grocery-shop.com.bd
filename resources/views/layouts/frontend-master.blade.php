@@ -130,7 +130,7 @@
 <div class="logo">
 	<a href="{{ url('/') }}">
 		
-		<img src="{{ asset('frontend') }}/assets/images/logo.png" alt="">
+		<img src="{{ asset('frontend') }}/assets/images/logo.png" alt="" style="height: 70px">
 
 	</a>
 </div><!-- /.logo -->
@@ -188,7 +188,7 @@
 				</div>
 				<div class="clearfix"></div>
 					
-				<a href="checkout.html" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>	
+				<a href="{{ route('checkout') }}" class="btn btn-upper btn-primary btn-block m-t-20">Checkout</a>	
 			</div><!-- /.cart-total-->
 					
 				
