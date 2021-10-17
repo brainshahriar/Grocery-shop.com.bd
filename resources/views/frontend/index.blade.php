@@ -146,7 +146,13 @@ Home
 		</div><!-- /.col -->
 		<div class="col col-xs-7">
 			<div class="product-info">
-				<h3 class="name"><a href="#">Floral Print Shirt</a></h3>
+				<h3 class="name"><a href="#">
+					@if (session()->get('language') == 'bangla')
+					<a href="detail.html">{{ $product->product_name_bn }}</a>
+					@else
+					<a href="detail.html">{{ $product->product_name_en }}</a>
+					@endif
+				</a></h3>
 				<div class="rating rateit-small"></div>
 				<div class="product-price">	
 					@if($product->discount_price==NULL)
@@ -333,151 +339,35 @@ Home
 <!-- ================================ SCROLL TABS ============================= -->
 <div id="product-tabs-slider" class="scroll-tabs outer-top-vs wow fadeInUp">
 	<div class="more-info-tab clearfix ">
-	   <h3 class="new-product-title pull-left"> @if (session()->get('language') == 'bangla') নতুন পণ্যসমূহ @else New Products @endif </h3>
+	   <h3 class="new-product-title pull-left">New Products</h3>
 		<ul class="nav nav-tabs nav-tab-line pull-right" id="new-products-1">
-            <li class="active"><a data-transition-type="backSlide" href="#all" data-toggle="tab">@if (session()->get('language') == 'bangla') সকল @else All @endif</a></li>
-            @foreach ($categories as $category)
+			<li class="active"><a data-transition-type="backSlide" href="#all" data-toggle="tab">All</a></li>
+			@foreach ($categories as $category)
             <li><a data-transition-type="backSlide" href="#category{{ $category->id }}" data-toggle="tab">@if (session()->get('language') == 'bangla') {{ $category->category_name_bn }}  @else {{ $category->category_name_en }} @endif</a></li>
             @endforeach
+			{{-- <li><a data-transition-type="backSlide" href="#smartphone" data-toggle="tab">Clothing</a></li>
+			<li><a data-transition-type="backSlide" href="#laptop" data-toggle="tab">Electronics</a></li>
+			<li><a data-transition-type="backSlide" href="#apple" data-toggle="tab">Shoes</a></li> --}}
 		</ul><!-- /.nav-tabs -->
 	</div>
 
 	<div class="tab-content outer-top-xs">
-		<div class="tab-pane in active" id="all">
+		<div class="tab-pane in active" id="all">			
 			<div class="product-slider">
 				<div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
-                    @foreach ($proudcts as $product)
-                        <div class="item item-carousel">
-                            <div class="products">
-                            <div class="product">
-                                    <div class="product-image">
-                                        <div class="image">
-											@if (session()->get('language') == 'bangla')
-											<a href="{{ url('single/product/'.$product->id.'/'.$product->product_slug_bn) }}"><img  src="{{ asset($product->product_thambnail) }}" alt=""></a>
-											@else
-											<a href="{{ url('single/product/'.$product->id.'/'.$product->product_slug_en) }}"><img  src="{{ asset($product->product_thambnail) }}" alt=""></a>
-											@endif
-                                        </div><!-- /.image -->
-										@php
-										$amount=0;
-										$discount=0;
-									 if($product->selling_price >0 && $product->discount_price>0)
-									 {
-										$amount+=$product->selling_price - $product->discount_price;
-										$discount+=($amount/$product->selling_price)*100;
-									 }
-								   @endphp
-                                        <div class="tag new">
-											@if($discount<=0)
-											<span>
-												@if (session()->get('language') == 'bangla')
-												নতুন
-												@else
-												New
-											   @endif
-										</span>
-											@else
-										   <span>
-											   @if(session()->get('language')=='bangla')
-											   {{ bn_price(round($discount)) }}%</span>
-											   @else
-											   {{ round($discount) }}%
-											@endif
-											</span>
-										  @endif
-                                        </div>
-
-                                    </div><!-- /.product-image -->
-
-                                    <div class="product-info text-left">
-                                        <h3 class="name">
-                                            @if (session()->get('language') == 'bangla')
-                                            <a href="detail.html">{{ $product->product_name_bn }}</a>
-                                            @else
-                                            <a href="detail.html">{{ $product->product_name_en }}</a>
-                                            @endif
-                                        </h3>
-                            
-                                         <span class="text-danger">No Review</span>
-                                
-                                        <div class="description"></div>
-                                        <div class="product-price">
-											@if($product->discount_price==NULL)
-										@if (session()->get('language') == 'bangla')
-											<span class="price">${{bn_price($product->selling_price) }}</span>
-										@else
-										    <span class="price">${{$product->selling_price }}</span>
-
-										@endif
-
-										  @else
-										@if (session()->get('language') == 'bangla')
-										<span class="price">${{bn_price($product->discount_price)}}</span>
-										<span class="price-before-discount">${{bn_price($product->selling_price) }}</span>
-										@else
-										<span class="price">${{$product->discount_price }}</span>
-										<span class="price-before-discount">${{$product->selling_price }}</span>
-										@endif
-									
-											@endif
-
-                                        </div><!-- /.product-price -->
-                                    </div><!-- /.product-info -->
-                                            <div class="cart clearfix animate-effect">
-                                                <div class="action">
-                                                    <ul class="list-unstyled">
-                                                        <li class="add-cart-button btn-group">
-                                                            <button class="btn btn-primary icon" type="button" title="Add Cart" data-toggle="modal" data-target="#cartModal" id="{{ $product->id }}" onclick="productView(this.id)">
-                                                                <i class="fa fa-shopping-cart"></i>
-                                                            </button>
-											
-                                                            <button class="btn btn-primary cart-btn" type="button" >
-																@if(session()->get('language')=='bangla')
-																কার্টে সংযুক্ত করুন
-																@else
-																Add to cart
-																@endif
-																<button>
-                                                        </li>
-                                                        <button class="btn btn-primary icon" type="button" title="Add to WIshlist" id="{{ $product->id }}" onclick="addToWishlist(this.id)">
-                                                            <i class="icon fa fa-heart"></i>
-                                                        </button>
-
-                                                    </ul>
-                                                </div><!-- /.action -->
-                                            </div><!-- /.cart -->
-                                    </div><!-- /.product -->
-                            </div><!-- /.products -->
-                        </div><!-- /.item -->
-                    @endforeach
-                </div><!-- /.home-owl-carousel -->
-
-	        </div><!-- /.product-slider -->
-
-        </div><!-- /.tab-pane -->
-
-		
-		
-		@foreach ($categories as $category)
+		@foreach ($proudcts as $product)
 			
-	
-
-   <div class="tab pan" id="category{{ $category->id }}">
-	<div class="product-slider">
-	<div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
-		@php
-			$catwiseProduct=App\Models\Product::where('category_id',$category->id)->orderBy('id','DESC')->get();
-		@endphp
-		@forelse ($catwiseProduct as $product)
+		    	
 		<div class="item item-carousel">
 			<div class="products">
-			<div class="product">
+				
+				<div class="product">
 					<div class="product-image">
 						<div class="image">
 							@if (session()->get('language') == 'bangla')
-							<a href=""><img  src="{{ asset($product->product_thambnail) }}" alt=""></a>
+							<a href="{{ url('single/product/'.$product->id.'/'.$product->product_slug_bn) }}"><img  src="{{ asset($product->product_thambnail) }}" alt=""></a>
 							@else
-							<a href=""><img  src="{{ asset($product->product_thambnail) }}" alt=""></a>
+							<a href="{{ url('single/product/'.$product->id.'/'.$product->product_slug_en) }}"><img  src="{{ asset($product->product_thambnail) }}" alt=""></a>
 							@endif
 						</div><!-- /.image -->
 						@php
@@ -549,9 +439,10 @@ Home
 								<div class="action">
 									<ul class="list-unstyled">
 										<li class="add-cart-button btn-group">
-											<button class="btn btn-primary icon" type="button" title="Add Cart" data-toggle="modal" data-target="#cartModal" id=")">
+											<button class="btn btn-primary icon" type="button" title="Add Cart" data-toggle="modal" data-target="#cartModal" id="{{ $product->id }}" onclick="productView(this.id)">
 												<i class="fa fa-shopping-cart"></i>
 											</button>
+							
 											<button class="btn btn-primary cart-btn" type="button" >
 												@if(session()->get('language')=='bangla')
 												কার্টে সংযুক্ত করুন
@@ -560,28 +451,159 @@ Home
 												@endif
 												<button>
 										</li>
-										<button class="btn btn-primary icon" type="button" title="Add to WIshlist" id="{{ $product->id }}" onclick="addToWishlist(this.id)">											<i class="icon fa fa-heart"></i>
+										<button class="btn btn-primary icon" type="button" title="Add to WIshlist" id="{{ $product->id }}" onclick="addToWishlist(this.id)">
+											<i class="icon fa fa-heart"></i>
 										</button>
 
 									</ul>
 								</div><!-- /.action -->
 							</div><!-- /.cart -->
 					</div><!-- /.product -->
+      
 			</div><!-- /.products -->
-		</div><!-- /.item -->
-			@empty
-			@if (session()->get('language') == 'bangla')
-			<h5 class="text-danger">কোনো পণ্য পাওয়া যায়নি</h5>
-			@else
-			<h5 class="text-danger">No Product Found</h5>
-			@endif
-		@endforelse
-	</div><!-- /.home-owl-carousel -->
-   </div>
-</div>
-   @endforeach
+		</div>
+		@endforeach	<!-- /.item -->
+	
+
+						</div><!-- /.home-owl-carousel -->
+			</div><!-- /.product-slider -->
+		</div><!-- /.tab-pane -->
+
+<!-- /.tab-pane -->
+@foreach ($categories as $category)
+	
+
+		<div class="tab-pane" id="category{{ $category->id }}">
+			
+			<div class="product-slider">
+				<div class="owl-carousel home-owl-carousel custom-carousel owl-theme" data-item="4">
+					@php
+					$catwiseProduct=App\Models\Product::where('category_id',$category->id)->orderBy('id','DESC')->get();
+					@endphp
+		@forelse ($catwiseProduct as $product)
+			
+		    	
+		<div class="item item-carousel">
+			<div class="products">
+				
+				<div class="product">
+					<div class="product-image">
+						<div class="image">
+							@if (session()->get('language') == 'bangla')
+							<a href="{{ url('single/product/'.$product->id.'/'.$product->product_slug_bn) }}"><img  src="{{ asset($product->product_thambnail) }}" alt=""></a>
+							@else
+							<a href="{{ url('single/product/'.$product->id.'/'.$product->product_slug_en) }}"><img  src="{{ asset($product->product_thambnail) }}" alt=""></a>
+							@endif
+						</div><!-- /.image -->
+						@php
+						$amount=0;
+						$discount=0;
+					 if($product->selling_price >0 && $product->discount_price>0)
+					 {
+						$amount+=$product->selling_price - $product->discount_price;
+						$discount+=($amount/$product->selling_price)*100;
+					 }
+				   @endphp
+						<div class="tag new">
+							@if($discount<=0)
+							<span>
+								@if (session()->get('language') == 'bangla')
+								নতুন
+								@else
+								New
+							   @endif
+						</span>
+							@else
+						   <span>
+							   @if(session()->get('language')=='bangla')
+							   {{ bn_price(round($discount)) }}%</span>
+							   @else
+							   {{ round($discount) }}%
+							@endif
+							</span>
+						  @endif
+						</div>
+
+					</div><!-- /.product-image -->
+
+					<div class="product-info text-left">
+						<h3 class="name">
+							@if (session()->get('language') == 'bangla')
+							<a href="detail.html">{{ $product->product_name_bn }}</a>
+							@else
+							<a href="detail.html">{{ $product->product_name_en }}</a>
+							@endif
+						</h3>
+			
+						 <span class="text-danger">No Review</span>
+				
+						<div class="description"></div>
+						<div class="product-price">
+							@if($product->discount_price==NULL)
+						@if (session()->get('language') == 'bangla')
+							<span class="price">${{bn_price($product->selling_price) }}</span>
+						@else
+							<span class="price">${{$product->selling_price }}</span>
+
+						@endif
+
+						  @else
+						@if (session()->get('language') == 'bangla')
+						<span class="price">${{bn_price($product->discount_price)}}</span>
+						<span class="price-before-discount">${{bn_price($product->selling_price) }}</span>
+						@else
+						<span class="price">${{$product->discount_price }}</span>
+						<span class="price-before-discount">${{$product->selling_price }}</span>
+						@endif
+					
+							@endif
+
+						</div><!-- /.product-price -->
+					</div><!-- /.product-info -->
+							<div class="cart clearfix animate-effect">
+								<div class="action">
+									<ul class="list-unstyled">
+										<li class="add-cart-button btn-group">
+											<button class="btn btn-primary icon" type="button" title="Add Cart" data-toggle="modal" data-target="#cartModal" id="{{ $product->id }}" onclick="productView(this.id)">
+												<i class="fa fa-shopping-cart"></i>
+											</button>
+							
+											<button class="btn btn-primary cart-btn" type="button" >
+												@if(session()->get('language')=='bangla')
+												কার্টে সংযুক্ত করুন
+												@else
+												Add to cart
+												@endif
+												<button>
+										</li>
+										<button class="btn btn-primary icon" type="button" title="Add to WIshlist" id="{{ $product->id }}" onclick="addToWishlist(this.id)">
+											<i class="icon fa fa-heart"></i>
+										</button>
+
+									</ul>
+								</div><!-- /.action -->
+							</div><!-- /.cart -->
+					</div><!-- /.product -->
+      
+			</div><!-- /.products -->
+		</div>
+		@empty
+		<h5 class="text-danger">No Product Found</h5>
+
+		@endforelse	<!-- /.item -->
+	
+
+						</div><!-- /.home-owl-carousel -->
+			</div>
+			
+	
+			<!-- /.product-slider -->
+		</div>
+		@endforeach<!-- /.tab-pane -->
+
+
 	</div><!-- /.tab-content -->
-</div>
+</div><!-- /.scroll-tabs -->
 		<!-- /.scroll-tabs -->
 <!-- ================== SCROLL TABS : END ================================= -->
 			<!-- ============================================== WIDE PRODUCTS ============================================== -->
@@ -700,24 +722,20 @@ Home
 				<div class="action">
 					<ul class="list-unstyled">
 						<li class="add-cart-button btn-group">
-							<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-								<i class="fa fa-shopping-cart"></i>													
-							</button>
-							<button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+							<button class="btn btn-primary icon" type="button" title="Add Cart" data-toggle="modal" data-target="#cartModal"
+							id="{{ $product->id }}" onclick="productView(this.id)">
+								<i class="fa fa-shopping-cart"></i>
+						   </button>
+							<button class="btn btn-primary cart-btn" type="button" data-toggle="modal" data-target="#cartModal" id="{{ $product->id }}" onclick="productView(this.id)">Add to cart</button>
 													
 						</li>
 	                   
-		                <li class="lnk wishlist">
-							<a class="add-to-cart" href="detail.html" title="Wishlist">
-								 <i class="icon fa fa-heart"></i>
-							</a>
-						</li>
+		   
+						<button class="btn btn-primary icon" type="button" title="Add to WIshlist" id="{{ $product->id }}" onclick="addToWishlist(this.id)">
+							<i class="icon fa fa-heart"></i>
+						</button>
 
-						<li class="lnk">
-							<a class="add-to-cart" href="detail.html" title="Compare">
-							    <i class="fa fa-signal" aria-hidden="true"></i>
-							</a>
-						</li>
+				
 					</ul>
 				</div><!-- /.action -->
 			</div><!-- /.cart -->
@@ -829,24 +847,19 @@ Home
 				<div class="action">
 					<ul class="list-unstyled">
 						<li class="add-cart-button btn-group">
-							<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-								<i class="fa fa-shopping-cart"></i>													
-							</button>
-							<button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+							<button class="btn btn-primary icon" type="button" title="Add Cart" data-toggle="modal" data-target="#cartModal"
+							id="{{ $product->id }}" onclick="productView(this.id)">
+								<i class="fa fa-shopping-cart"></i>
+						   </button>
+							<button class="btn btn-primary cart-btn" type="button" 
+							data-toggle="modal" data-target="#cartModal" id="{{ $product->id }}" onclick="productView(this.id)">Add to cart</button>
 													
 						</li>
 	                   
-		                <li class="lnk wishlist">
-							<a class="add-to-cart" href="detail.html" title="Wishlist">
-								 <i class="icon fa fa-heart"></i>
-							</a>
-						</li>
+						<button class="btn btn-primary icon" type="button" title="Add to WIshlist" id="{{ $product->id }}" onclick="addToWishlist(this.id)">
+							<i class="icon fa fa-heart"></i>
+						</button>
 
-						<li class="lnk">
-							<a class="add-to-cart" href="detail.html" title="Compare">
-							    <i class="fa fa-signal" aria-hidden="true"></i>
-							</a>
-						</li>
 					</ul>
 				</div><!-- /.action -->
 			</div><!-- /.cart -->
@@ -958,24 +971,20 @@ Home
 				<div class="action">
 					<ul class="list-unstyled">
 						<li class="add-cart-button btn-group">
-							<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-								<i class="fa fa-shopping-cart"></i>													
-							</button>
-							<button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+							<button class="btn btn-primary icon" type="button" title="Add Cart" data-toggle="modal" data-target="#cartModal"
+							id="{{ $product->id }}" onclick="productView(this.id)">
+								<i class="fa fa-shopping-cart"></i>
+						   </button>
+							<button class="btn btn-primary cart-btn" type="button" 
+							data-toggle="modal" data-target="#cartModal" id="{{ $product->id }}" onclick="productView(this.id)">Add to cart</button>
 													
 						</li>
 	                   
-		                <li class="lnk wishlist">
-							<a class="add-to-cart" href="detail.html" title="Wishlist">
-								 <i class="icon fa fa-heart"></i>
-							</a>
-						</li>
+						<button class="btn btn-primary icon" type="button" title="Add to WIshlist" id="{{ $product->id }}" onclick="addToWishlist(this.id)">
+							<i class="icon fa fa-heart"></i>
+						</button>
 
-						<li class="lnk">
-							<a class="add-to-cart" href="detail.html" title="Compare">
-							    <i class="fa fa-signal" aria-hidden="true"></i>
-							</a>
-						</li>
+			
 					</ul>
 				</div><!-- /.action -->
 			</div><!-- /.cart -->
@@ -1087,24 +1096,18 @@ Home
 				<div class="action">
 					<ul class="list-unstyled">
 						<li class="add-cart-button btn-group">
-							<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-								<i class="fa fa-shopping-cart"></i>													
-							</button>
-							<button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+							<button class="btn btn-primary icon" type="button" title="Add Cart" data-toggle="modal" data-target="#cartModal"
+							id="{{ $product->id }}" onclick="productView(this.id)">
+								<i class="fa fa-shopping-cart"></i>
+						   </button>
+							<button class="btn btn-primary cart-btn" type="button" data-toggle="modal" data-target="#cartModal" id="{{ $product->id }}" onclick="productView(this.id)">Add to cart</button>
 													
 						</li>
 	                   
-		                <li class="lnk wishlist">
-							<a class="add-to-cart" href="detail.html" title="Wishlist">
-								 <i class="icon fa fa-heart"></i>
-							</a>
-						</li>
+		                <button class="btn btn-primary icon" type="button" title="Add to WIshlist" id="{{ $product->id }}" onclick="addToWishlist(this.id)">
+							<i class="icon fa fa-heart"></i>
+						</button>
 
-						<li class="lnk">
-							<a class="add-to-cart" href="detail.html" title="Compare">
-							    <i class="fa fa-signal" aria-hidden="true"></i>
-							</a>
-						</li>
 					</ul>
 				</div><!-- /.action -->
 			</div><!-- /.cart -->
@@ -1216,24 +1219,17 @@ Home
 				<div class="action">
 					<ul class="list-unstyled">
 						<li class="add-cart-button btn-group">
-							<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-								<i class="fa fa-shopping-cart"></i>													
-							</button>
-							<button class="btn btn-primary cart-btn" type="button">Add to cart</button>
+							<button class="btn btn-primary icon" type="button" title="Add Cart" data-toggle="modal" data-target="#cartModal"
+							id="{{ $product->id }}" onclick="productView(this.id)">
+								<i class="fa fa-shopping-cart"></i>
+						   </button>
+							<button class="btn btn-primary cart-btn" type="button" data-toggle="modal" data-target="#cartModal" id="{{ $product->id }}" onclick="productView(this.id)">Add to cart</button>
 													
 						</li>
 	                   
-		                <li class="lnk wishlist">
-							<a class="add-to-cart" href="detail.html" title="Wishlist">
-								 <i class="icon fa fa-heart"></i>
-							</a>
-						</li>
-
-						<li class="lnk">
-							<a class="add-to-cart" href="detail.html" title="Compare">
-							    <i class="fa fa-signal" aria-hidden="true"></i>
-							</a>
-						</li>
+						<button class="btn btn-primary icon" type="button" title="Add to WIshlist" id="{{ $product->id }}" onclick="addToWishlist(this.id)">
+							<i class="icon fa fa-heart"></i>
+						</button>
 					</ul>
 				</div><!-- /.action -->
 			</div><!-- /.cart -->

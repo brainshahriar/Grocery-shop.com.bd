@@ -309,7 +309,8 @@
 								              
 										<input type="hidden" value="{{ $products->id }}" id="product_id" >
 
-										<button type="submit" onclick="addToCart()" href="#" class="btn btn-primary"><i class="fa fa-shopping-cart inner-right-vs"></i>
+										
+										<button type="submit" onclick="addToCart()" href="#" class="btn btn-primary" ><i class="fa fa-shopping-cart inner-right-vs"></i>
 											@if (session()->get('language') == 'bangla')
 											কার্টে সংযুক্ত করুন
 											@else
@@ -587,13 +588,12 @@
 										<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
 											<i class="fa fa-shopping-cart"></i>													
 										</button>
-										<button class="btn btn-primary cart-btn" type="button">
-											@if(session()->get('language')=='bangla')
+										<button type="submit" onclick="addToCart()" href="#" class="btn btn-primary" ><i class="fa fa-shopping-cart inner-right-vs"></i>
+											@if (session()->get('language') == 'bangla')
 											কার্টে সংযুক্ত করুন
 											@else
-											Add to cart
+											ADD TO CART
 											@endif
-
 										</button>
 																
 									</li>

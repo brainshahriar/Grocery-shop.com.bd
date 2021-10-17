@@ -322,24 +322,17 @@
 				<div class="action">
 					<ul class="list-unstyled">
 						<li class="add-cart-button btn-group">
-							<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-								<i class="fa fa-shopping-cart"></i>													
-							</button>
-							<button class="btn btn-primary cart-btn" type="button"></button>
+							<button class="btn btn-primary icon" type="button" title="Add Cart" data-toggle="modal" data-target="#cartModal"
+							id="{{ $product->id }}" onclick="productView(this.id)">
+								<i class="fa fa-shopping-cart"></i>
+						   </button>
+							<button class="btn btn-primary cart-btn" type="button" data-toggle="modal" data-target="#cartModal" id="{{ $product->id }}" onclick="productView(this.id)"></button>
 													
 						</li>
-	                   
-		                <li class="lnk wishlist">
-							<a class="add-to-cart" href="detail.html" title="Wishlist">
-								 <i class="icon fa fa-heart"></i>
-							</a>
-						</li>
-
-						<li class="lnk">
-							<a class="add-to-cart" href="detail.html" title="Compare">
-							    <i class="fa fa-signal"></i>
-							</a>
-						</li>
+	                    <button class="btn btn-primary icon" type="button" title="Add to WIshlist" id="{{ $product->id }}" onclick="addToWishlist(this.id)">
+							<i class="icon fa fa-heart"></i>
+						</button>
+		
 					</ul>
 				</div><!-- /.action -->
 			</div><!-- /.cart -->
@@ -429,10 +422,11 @@
 					<div class="action">
 						<ul class="list-unstyled">
 							<li class="add-cart-button btn-group">
-								<button class="btn btn-primary icon" data-toggle="dropdown" type="button">
-									<i class="fa fa-shopping-cart"></i>													
-								</button>
-								<button class="btn btn-primary cart-btn" type="button">
+								<button class="btn btn-primary icon" type="button" title="Add Cart" data-toggle="modal" data-target="#cartModal"
+								id="{{ $product->id }}" onclick="productView(this.id)">
+									<i class="fa fa-shopping-cart"></i>
+							   </button>
+								<button class="btn btn-primary cart-btn" type="button" data-toggle="modal" data-target="#cartModal" id="{{ $product->id }}" onclick="productView(this.id)">
 									@if(session()->get('language')=='bangla')
 									কার্টে সংযুক্ত করুন
 									@else
@@ -442,17 +436,9 @@
 														
 							</li>
 		                   
-			                <li class="lnk wishlist">
-								<a class="add-to-cart" href="detail.html" title="Wishlist">
-									 <i class="icon fa fa-heart"></i>
-								</a>
-							</li>
-
-							<li class="lnk">
-								<a class="add-to-cart" href="detail.html" title="Compare">
-								    <i class="fa fa-signal"></i>
-								</a>
-							</li>
+							<button class="btn btn-primary icon" type="button" title="Add to WIshlist" id="{{ $product->id }}" onclick="addToWishlist(this.id)">
+								<i class="icon fa fa-heart"></i>
+							</button>
 						</ul>
 					</div><!-- /.action -->
 				</div><!-- /.cart -->
