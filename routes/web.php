@@ -20,6 +20,9 @@ Use App\Http\Controllers\Admin\ShipAreaController;
 Use App\Http\Controllers\Admin\OrderController;
 Use App\Http\Controllers\Admin\ReportController;
 Use App\Http\Controllers\Admin\RoleController;
+Use App\Http\Controllers\Admin\PermissionController;
+
+
 
 Use App\Http\Controllers\Frontend\LanguageController;
 Use App\Http\Controllers\Frontend\IndexController;
@@ -173,6 +176,7 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth']], function(){
 
     //role & permission
     Route::resource('role',RoleController::class);
+    Route::resource('permission', PermissionController::class);
 
 
 
