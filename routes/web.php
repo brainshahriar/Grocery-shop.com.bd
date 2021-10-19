@@ -21,6 +21,7 @@ Use App\Http\Controllers\Admin\OrderController;
 Use App\Http\Controllers\Admin\ReportController;
 Use App\Http\Controllers\Admin\RoleController;
 Use App\Http\Controllers\Admin\PermissionController;
+Use App\Http\Controllers\Admin\SubadminController;
 
 
 
@@ -177,6 +178,7 @@ Route::group(['prefix'=>'admin','middleware' =>['admin','auth']], function(){
     //role & permission
     Route::resource('role',RoleController::class);
     Route::resource('permission', PermissionController::class);
+    Route::resource('subadmin', SubadminController::class);
 
 
 
